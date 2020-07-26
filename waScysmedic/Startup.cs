@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Persistence;
 
 namespace waScysmedic
 {
@@ -26,6 +28,14 @@ namespace waScysmedic
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContext<ScysmedicDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ScysmedicDB")));
+
+                services.AddIdentity<IdentityUser, IdentityRole>(x=>{
+                    x.Password.RequiredLength = 8;
+                    
+                }).AddEntityFrameworkStores<ScysmedicDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +51,8 @@ namespace waScysmedic
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
