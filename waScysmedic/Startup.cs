@@ -24,6 +24,8 @@ namespace waScysmedic
 
         public IConfiguration Configuration { get; }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -32,10 +34,19 @@ namespace waScysmedic
             services.AddDbContext<ScysmedicDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ScysmedicDB")));
 
-                services.AddIdentity<IdentityUser, IdentityRole>(x=>{
-                    x.Password.RequiredLength = 8;
+            services.AddIdentity<IdentityUser, IdentityRole>(x=>{
+                x.Password.RequiredLength = 8;
                     
-                }).AddEntityFrameworkStores<ScysmedicDbContext>();
+            }).AddEntityFrameworkStores<ScysmedicDbContext>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:5001","http://localhost:8200");
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +60,8 @@ namespace waScysmedic
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
