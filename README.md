@@ -1,6 +1,6 @@
 # Scysmedic
 
-this brnach is for Juan Soler
+this branch is fir Onelvis de la Rosa
 
 Este proyecto es para la materia de Proyecto de Grado
 

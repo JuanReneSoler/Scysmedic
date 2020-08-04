@@ -1,26 +1,43 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
-    redirectTo: 'auth',
-    pathMatch: 'full'
+    loadChildren: './home/home.module#HomePageModule'
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthPageModule)
   },
+  {
+    path: 'myhealth',
+    loadChildren: () => import('./myhealth/myhealth.module').then(m => m.MyhealthPageModule)
+  },
+  {
+    path: 'citas',
+    loadChildren: () => import('./citas/citas.module').then(m => m.CitasPageModule)
+  },
+  {
+    path: 'compras',
+    loadChildren: () => import('./compras/compras.module').then(m => m.ComprasPageModule)
+  },
+  {
+    path: 'resultados',
+    loadChildren: () => import('./resultados/resultados.module').then(m => m.ResultadosPageModule)
+  },
+  {
+    path: 'configuracion',
+    loadChildren: () => import('./configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
+  }
+
+
+
+
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="" (click)="cerrarSinPasarDatos()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalles de la cita</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list [(ngModel)]="cita">
+    <h4>Datos del especialista</h4>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src={{cita.imagen}}>
+      </ion-thumbnail>
+      <ion-label>
+        <h4>{{cita.especialista}}</h4>
+        <p>{{cita.especialidad}}</p>
+        <p>{{cita.centro}}</p>
+      </ion-label>
+    </ion-item>
+
+    <h4>Datos de la cita</h4>
+    <ion-item>
+      <ion-label>
+        <p><b>Fecha: </b>{{cita.fecha}}</p>
+        <p><b>Centro: </b>{{cita.centro}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

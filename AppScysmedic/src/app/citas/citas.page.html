@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button>
+
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Citas programadas
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="showpop($event)">
+        <ion-icon name="ellipsis-horizontal" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar 
+    #searchbar
+    [(ngModel)]="searchTerm" 
+    placeholder="Search"
+    (ionChange)="searchChanged($event)" 
+    *ngIf="toggled"
+    (ionCancel)="showDefaultBar()"
+    (ionBlur)="showDefaultBar()">
+   </ion-searchbar>
+   
+  <ion-item-sliding ngDefaultControl *ngFor="let cita of citas" [(ngModel)]="citas">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src={{cita.imagen}}>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{cita.centro}}</h2>
+        <h3>{{cita.fecha}}</h3>
+        <p>{{cita.especialista}}</p>
+        <p>{{cita.especialidad}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option (click)="openDetallesCita(cita)">Detalles</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+
+</ion-content>

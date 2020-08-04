@@ -18,4 +18,4 @@ import { AuthPage } from './auth.page';
   ],
   declarations: [AuthPage]
 })
-export class AuthPageModule {}
+export class AuthPageModule { }
