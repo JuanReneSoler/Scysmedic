@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ProgramarCitaPageRoutingModule } from './programar-cita-routing.module';
 
 import { ProgramarCitaPage } from './programar-cita.page';
+import { IonicSelectableModule } from 'ionic-selectable';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProgramarCitaPageRoutingModule
+    ProgramarCitaPageRoutingModule,
+    IonicSelectableModule
   ],
   declarations: [ProgramarCitaPage]
 })

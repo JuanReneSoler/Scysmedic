@@ -7,13 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { ResultadosPageRoutingModule } from './resultados-routing.module';
 
 import { ResultadosPage } from './resultados.page';
+import { ResultadosDetailPageModule } from '../resultados-detail/resultados-detail.module';
+import { ResultadosDetailPage } from '../resultados-detail/resultados-detail.page';
 
 @NgModule({
+  entryComponents: [
+    ResultadosDetailPage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ResultadosPageRoutingModule
+    ResultadosPageRoutingModule,
+    ResultadosDetailPageModule
   ],
   declarations: [ResultadosPage]
 })

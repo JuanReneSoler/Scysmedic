@@ -10,10 +10,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent {
 
+
   public MenuPaciente = [
-    {title: 'Mi panel', url: '/home/citas', icon:'clipboard'},
-    {title: 'Mi salud', url: '/myhealth', icon:'heart'},
-    {title: 'Historial', url: '/tes2', icon:'time'}
+    { title: 'Mi panel', url: '/home/citas', icon: 'clipboard' },
+    { title: 'Mi salud', url: '/myhealth', icon: 'heart' },
+    { title: 'Historial', url: '/tes2', icon: 'time' }
   ];
   constructor(
     private platform: Platform,
@@ -21,6 +22,7 @@ export class AppComponent {
     private statusBar: StatusBar
   ) {
     this.initializeApp();
+
   }
 
   initializeApp() {
@@ -29,4 +31,8 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+
+
+
+
 }

@@ -3,10 +3,51 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="" (click)="cerrarSinPasarDatos()"></ion-back-button>
     </ion-buttons>
-    <ion-title>Detalles</ion-title>
+    <ion-title>Programa tu cita</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-label>Centro médico:</ion-label>
+
+      <ionic-selectable [(ngModel)]="centro_seleccionado" [items]="centros" itemValueField="id" itemTextField="nombre"
+        [canSearch]="true">
+      </ionic-selectable>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Especialidad:</ion-label>
+
+      <ionic-selectable [(ngModel)]="especialidad_seleccionada" [items]="especialidades" itemValueField="id"
+        itemTextField="nombre" [canSearch]="true">
+      </ionic-selectable>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Medico:</ion-label>
+
+      <ionic-selectable [(ngModel)]="especialista_seleccionado" [items]="especialistas" itemValueField="id"
+        itemTextField="nombre" [canSearch]="true">
+      </ionic-selectable>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Fecha de la cita:</ion-label>
+      <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Selecciona una fecha"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Hora:</ion-label>
+      <ion-datetime displayFormat="HH:mm" placeholder="Selecciona la hora"></ion-datetime>
+    </ion-item>
+
+
+  </ion-card>
+
 
 </ion-content>

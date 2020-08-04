@@ -8,6 +8,7 @@ import { CitasPageRoutingModule } from './citas-routing.module';
 
 import { CitasPage } from './citas.page';
 import { ProgramarCitaPageModule } from '../programar-cita/programar-cita.module';
+import { CitasDetailPageModule } from '../citas-detail/citas-detail.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ProgramarCitaPageModule } from '../programar-cita/programar-cita.module
     FormsModule,
     IonicModule,
     CitasPageRoutingModule,
-    ProgramarCitaPageModule
+    ProgramarCitaPageModule,
+    CitasDetailPageModule
   ],
   declarations: [CitasPage]
 })
