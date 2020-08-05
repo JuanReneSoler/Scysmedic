@@ -11,6 +11,13 @@ namespace Persistence.Models
             AspNetUserLogins = new HashSet<AspNetUserLogins>();
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
             AspNetUserTokens = new HashSet<AspNetUserTokens>();
+            Citas = new HashSet<Citas>();
+            Compra = new HashSet<Compra>();
+            FarmaciaUser = new HashSet<FarmaciaUser>();
+            HospitalUser = new HashSet<HospitalUser>();
+            LaboratorioUser = new HashSet<LaboratorioUser>();
+            Receta = new HashSet<Receta>();
+            Resultado = new HashSet<Resultado>();
         }
 
         public string Id { get; set; }
@@ -33,5 +40,12 @@ namespace Persistence.Models
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
+        public virtual ICollection<Citas> Citas { get; set; }
+        public virtual ICollection<Compra> Compra { get; set; }
+        public virtual ICollection<FarmaciaUser> FarmaciaUser { get; set; }
+        public virtual ICollection<HospitalUser> HospitalUser { get; set; }
+        public virtual ICollection<LaboratorioUser> LaboratorioUser { get; set; }
+        public virtual ICollection<Receta> Receta { get; set; }
+        public virtual ICollection<Resultado> Resultado { get; set; }
     }
 }
