@@ -5,9 +5,43 @@
       <ion-back-button defaultHref="" (click)="cerrarSinPasarDatos()"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-    
+
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-list *ngIf="resultado.tipo_documento == 'Receta'">
+        <ion-label>
+          <h4>Datos del especialista</h4>
+        </ion-label>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img src={{resultado.imagen_especialista}}>
+          </ion-thumbnail>
+          <ion-label>
+            <h4>{{resultado.especialista}}</h4>
+            <p>{{resultado.especialidad}}</p>
+            <p>{{resultado.centro}}</p>
+          </ion-label>
+        </ion-item>
+        <br>
+        <ion-label>
+          <h4>Paciente: {{resultado.paciente}}</h4>
+          <p>Fecha de la cita: {{resultado.fecha}}</p>
+        </ion-label>
 
+
+      <h5>Indicaciones de la receta:</h5>
+      <ion-item *ngFor="let detalle of resultado.detalles">
+        <ion-label>
+          <h4>Medicamento: {{detalle.medicamento}}</h4>
+          <p>Cantidad: {{detalle.cantidad}}</p>
+          <p>Indicación: {{detalle.aplicacion}}</p>
+        </ion-label>
+      </ion-item>
+
+
+    </ion-list>
+
+  </ion-item>
 </ion-content>
