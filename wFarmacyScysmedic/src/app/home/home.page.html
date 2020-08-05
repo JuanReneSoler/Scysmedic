@@ -1,0 +1,16 @@
+<ion-split-pane contentId="my-content">
+  <ion-menu contentId="my-content">
+    <ion-header>
+      <ion-toolbar color="">
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item routerLink="/home/despacho" >Despacho</ion-item>
+        <ion-item routerLink="/home/entrada">Entrada</ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="my-content"></ion-router-outlet>
+</ion-split-pane>

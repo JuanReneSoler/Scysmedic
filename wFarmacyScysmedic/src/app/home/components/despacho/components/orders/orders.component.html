@@ -1,0 +1,40 @@
+<ion-searchbar 
+    #searchbar
+    [(ngModel)]="searchTerm" 
+    placeholder="Search"
+    (ionChange)="searchChanged($event)" 
+    *ngIf="toggled"
+    (ionCancel)="showDefaultBar()"
+    (ionBlur)="showDefaultBar()">
+   </ion-searchbar>
+   
+<ion-content
+  height="200"
+  [scrollEvents]="true"
+  (ionScrollStart)="logScrollStart()"
+  (ionScroll)="logScrolling($event)"
+  (ionScrollEnd)="logScrollEnd()">
+    <!-- <h1>Main Content</h1> -->
+
+    <!-- <div slot="fixed">
+      <h1>Fixed Content</h1>
+    </div> -->
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Pokémon Yellow</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Mega Man X</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>The Legend of Zelda</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Pac-Man</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Super Mario World</ion-label>
+      </ion-item>
+    </ion-item-sliding>
+</ion-content>
+
