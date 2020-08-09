@@ -31,25 +31,26 @@
       <ion-label>Medico:</ion-label>
 
       <ionic-selectable [(ngModel)]="especialista_seleccionado" [items]="especialistas" itemValueField="id"
-        itemTextField="nombre" [canSearch]="true">
+        itemTextField="nombre" [canSearch]="true" (onChange)="cambiarFecha()">
       </ionic-selectable>
 
     </ion-item>
 
     <ion-item>
       <ion-label>Fecha de la cita:</ion-label>
-      <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Selecciona una fecha"></ion-datetime>
+      <ion-datetime displayFormat="D MMMM YYYY" placeholder="Selecciona una fecha" [(ngModel)]="fecha"></ion-datetime>
     </ion-item>
 
+    <!--
     <ion-item>
       <ion-label>Hora:</ion-label>
       <ion-datetime displayFormat="HH:mm" placeholder="Selecciona la hora"></ion-datetime>
     </ion-item>
 
-
+-->
   </ion-card>
 
-  <ion-button expand="full">Solicitar cita</ion-button>
+  <ion-button (click)="presentAlertConfirm()" expand="full">Solicitar cita</ion-button>
 
 
 </ion-content>
