@@ -9,12 +9,16 @@ const routes: Routes = [
     children:[
       {
         path: 'despacho',
-        loadChildren: () => import('./components/despacho/despacho.module').then( m => m.DespachoPageModule)
+        loadChildren: () => import('./pages/despacho/despacho.module').then( m => m.DespachoPageModule)
       },
       {
         path: 'entrada',
-        loadChildren: () => import('./components/entrada/entrada.module').then( m => m.EntradaPageModule)
-      }
+        loadChildren: () => import('./pages/entrada/entrada.module').then( m => m.EntradaPageModule)
+      },
+      {
+        path:"configuration",
+        loadChildren:()=>import("./pages/configuration/configuration.module").then(x=>x.ConfigurationPageModule)
+      },
     ]
   },
 ];

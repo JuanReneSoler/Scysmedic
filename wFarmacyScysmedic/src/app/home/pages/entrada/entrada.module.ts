@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { EntradaPageRoutingModule } from './entrada-routing.module';
 
 import { EntradaPage } from './entrada.page';
+import { PanelComponent } from './components/panel/panel.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { EntradaPage } from './entrada.page';
     IonicModule,
     EntradaPageRoutingModule
   ],
-  declarations: [EntradaPage]
+  declarations: [EntradaPage, PanelComponent]
 })
 export class EntradaPageModule {}

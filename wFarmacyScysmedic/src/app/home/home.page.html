@@ -1,16 +1,34 @@
 <ion-split-pane contentId="my-content">
-  <ion-menu contentId="my-content">
+  <ion-menu style="width: 20%;" contentId="my-content">
     <ion-header>
       <ion-toolbar color="">
-        <ion-title>Menu</ion-title>
+        <ion-title>Scysmedic: <i><u>Referencia</u></i></ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item routerLink="/home/despacho" >Despacho</ion-item>
-        <ion-item routerLink="/home/entrada">Entrada</ion-item>
+        <ion-item routerLink="/home/despacho" >
+          <ion-label>Despacho</ion-label>
+          <ion-icon name="list-sharp"></ion-icon>
+        </ion-item>
+        <ion-item routerLink="/home/entrada">
+          <ion-label>Entrada</ion-label>
+          <ion-icon name="desktop-sharp"></ion-icon>
+        </ion-item>
       </ion-list>
     </ion-content>
+    <ion-footer>
+      <ion-list>
+        <ion-item routerLink="/home/configuration">
+          <ion-label>Configuracion</ion-label>
+          <ion-icon name="settings-sharp"></ion-icon>
+        </ion-item>
+        <ion-item routerLink="" >
+          <ion-label>Cerrar Sesion</ion-label>
+          <ion-icon name="power-sharp"></ion-icon>
+        </ion-item>
+      </ion-list>
+    </ion-footer>
   </ion-menu>
   <ion-router-outlet id="my-content"></ion-router-outlet>
 </ion-split-pane>

@@ -1,44 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Autenticacion</ion-title>
+    <img src="" alt="">
+    <ion-title>Scysmedic-<i>Farmacy</i></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="loginForm" (ngSubmit)="submitForm()" novalidate>
-
-    <ion-item lines="full">
-      <ion-label position="floating">Usuario</ion-label>
-      <ion-input formControlName="userName" type="text" required></ion-input>
-    </ion-item>
-
-    <ion-item lines="full">
-      <ion-label position="floating">Contrasena</ion-label>
-      <ion-input formControlName="password" type="password" required></ion-input>
-    </ion-item>
-
-    <!-- <ion-item lines="full">
-      <ion-label position="floating">DOB</ion-label>
-      <ion-datetime (ionChange)="getDate($event)" formControlName="dob" [value]="defaultDate"></ion-datetime>
-    </ion-item>
-
-    <ion-item lines="full">
-      <ion-label position="floating">Mobile</ion-label>
-      <ion-input formControlName="mobile" type="text" required></ion-input>
-    </ion-item> -->
-    <ion-item>
-      <ion-label>{{message}}</ion-label>
-    </ion-item>
-
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Submit</ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-label (click)="regist()" expand="block" position="floating">Registrarse</ion-label>
-      </ion-col>
-    </ion-row>
-  </form>
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+      </div>
+  
+      <!-- Login Form -->
+      <form>
+        <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+        <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
+        <input type="submit" routerLink="/home/despacho" class="fadeIn fourth" value="Acceder">
+      </form>
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="#">Olvidaste tu contrase~na?</a>
+      </div>
+  
+    </div>
+  </div>
 </ion-content>
