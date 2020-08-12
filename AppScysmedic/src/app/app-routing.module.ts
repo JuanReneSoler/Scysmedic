@@ -38,7 +38,8 @@ const routes: Routes = [
   {
     path: 'historial',
     loadChildren: () => import('./historial/historial.module').then( m => m.HistorialPageModule)
-  },  {
+  },
+  {
     path: 'buscar-laboratorio',
     loadChildren: () => import('./buscar-laboratorio/buscar-laboratorio.module').then( m => m.BuscarLaboratorioPageModule)
   },
@@ -46,7 +47,6 @@ const routes: Routes = [
     path: 'compra-detail',
     loadChildren: () => import('./compra-detail/compra-detail.module').then( m => m.CompraDetailPageModule)
   }
-
 
 
 

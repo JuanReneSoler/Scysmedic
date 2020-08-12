@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AccountService } from '../services/account.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-auth',
@@ -9,33 +10,36 @@ import { AccountService } from '../services/account.service';
 })
 export class AuthPage implements OnInit {
 
-  loginForm:FormGroup;
+  logged = false;
+  loginForm: FormGroup;
 
-  message:string;
+  message: string;
 
   constructor(
-    public formBuilder:FormBuilder, 
-    private account:AccountService) {
+    public formBuilder: FormBuilder,
+    private account: AccountService, private menuCtrl: MenuController) {
     this.loginForm = this.formBuilder.group({
       userName: ['', [Validators.required, Validators.minLength(2)]],
       password: ['', [Validators.required, Validators.minLength(2)]],
-   })
+    })
   }
 
   ngOnInit() {
+    this.menuCtrl.enable(false);
   }
 
-  submitForm(){
+  submitForm() {
     this.account.LogIn(this.loginForm.value["userName"], this.loginForm.value["password"], false)
-    .subscribe((data:any)=>{
-      debugger
-      console.log(data.error);
-    }, (result:any)=>{
-      this.message = result.error;
-    });
+      .subscribe((data: any) => {
+        debugger
+        console.log(data.error);
+      }, (result: any) => {
+        this.message = result.error;
+      });
   }
 
-  regist(){
+  regist() {
     alert("funciona");
   }
+
 }

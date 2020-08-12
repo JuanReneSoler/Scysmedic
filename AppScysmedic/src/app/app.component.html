@@ -1,6 +1,6 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
+  <ion-split-pane contentId="main-content" >
+    <ion-menu contentId="main-content" type="overlay" >
       <ion-content>
 
         <ion-header>
@@ -31,7 +31,7 @@
         <ion-list id="inbox-list">
           <ion-menu-toggle auto-hide="false">
             <ion-item [routerDirection]="'root'" routerLink="/configuracion" lines="none">
-              <ion-icon slot="start" name="settings-outline"></ion-icon>
+              <ion-icon slot="start" name="options-outline"></ion-icon>
               <ion-label>Configuracion</ion-label>
             </ion-item>
             <ion-item [routerDirection]="'root'" routerLink="/auth" lines="none">
