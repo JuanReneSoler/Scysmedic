@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="" (click)="cerrarSinPasarDatos()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Información de perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="stacked">Nombre de usuario</ion-label>
+    <ion-input required type="text" value={{usuario.nombre}}></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Contrasena</ion-label>
+    <ion-input required type="password" value={{usuario.contrasena}}></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Telefono</ion-label>
+    <ion-input required type="text" value={{usuario.telefono}}></ion-input>
+  </ion-item>
+
+</ion-content>

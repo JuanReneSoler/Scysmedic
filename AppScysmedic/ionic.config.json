@@ -1,5 +1,7 @@
 {
   "name": "AppScysmedic",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -14,7 +14,7 @@ export class AppComponent {
   public MenuPaciente = [
     { title: 'Mi panel', url: '/home/citas', icon: 'clipboard' },
     { title: 'Mi salud', url: '/myhealth', icon: 'heart' },
-    { title: 'Historial', url: '/tes2', icon: 'time' }
+    { title: 'Historial', url: '/historial', icon: 'time' }
   ];
   constructor(
     private platform: Platform,

@@ -9,22 +9,94 @@
       Mi panel
     </ion-title>
 
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="ellipsis-horizontal" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
-</ion-header>
-<ion-content>
-  <ion-card button="true" (click)="openDetallesResultado()">
-    <ion-card-header>
-      <ion-card-subtitle>Resultado 1</ion-card-subtitle>
-    </ion-card-header>
 
-    <ion-card-content>
-      Texto de ejemplo
-    </ion-card-content>
-  </ion-card>
+  <ion-segment value="all" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="recetas">
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label>Recetas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="indicaciones">
+      <ion-icon name="flask-outline"></ion-icon>
+      <ion-label>Indicaciones</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-item *ngIf="search_bar_visible">
+    <ion-searchbar #searchbar  [(ngModel)]="searchTerm" placeholder="Search" (ionCancel)="showDefaultBar()"
+      (ionBlur)="showDefaultBar()">
+    </ion-searchbar>
+  </ion-item>
+
+
+  <ion-item *ngIf="datetime_picker_visible">
+    <ion-label>Desde:</ion-label>
+    <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Seleccione una fecha"></ion-datetime>
+  </ion-item>
+
+  <ion-item *ngIf="datetime_picker_visible">
+    <ion-label>Hasta:</ion-label>
+    <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Seleccione una fecha"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Filtro:</ion-label>
+    <ion-select interface="popover" multiple="false" placeholder="Select One" (ionChange)="OptionSelected($event)">
+      <ion-select-option value="fecha">Por fecha</ion-select-option>
+      <ion-select-option value="institucion">Por institución</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+
+  <div *ngIf="segmento == 'recetas'">
+    <ion-card button ngDefaultControl (click)="openDetallesResultado(receta)" *ngFor="let receta of recetas"
+      [(ngModel)]="recetas">
+      <ion-card-header>
+        <ion-chip color="primary">
+          <ion-icon name={{receta.icono}}></ion-icon>
+          <ion-label color="primary">{{receta.tipo_documento}}</ion-label>
+        </ion-chip>
+        <ion-chip color="{{receta.color_estado}}" outline>
+          <ion-icon name={{receta.icono_estado}}></ion-icon>
+          <ion-label color="{{receta.color_estado}}">{{receta.estado}}</ion-label>
+        </ion-chip>
+        <ion-card-title>{{receta.centro}}</ion-card-title>
+        <ion-card-subtitle>{{receta.fecha}}</ion-card-subtitle>
+        <ion-card-subtitle>{{receta.especialista}}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </div>
+
+
+
+  <div *ngIf="segmento == 'indicaciones'">
+    <ion-card button ngDefaultControl (click)="openDetallesResultado(indicacion)"
+      *ngFor="let indicacion of indicaciones" [(ngModel)]="indicaciones">
+      <ion-card-header>
+        <!-- Chips-->
+        <ion-chip color="primary">
+          <ion-icon name={{indicacion.icono}}></ion-icon>
+          <ion-label color="primary">
+            <p></p>{{indicacion.tipo_documento}}
+          </ion-label>
+        </ion-chip>
+        <ion-chip color={{indicacion.color_estado}} outline>
+          <ion-icon name={{indicacion.icono_estado}} color={{indicacion.color_estado}}></ion-icon>
+          <ion-label color={{indicacion.color_estado}}>{{indicacion.estado}}</ion-label>
+        </ion-chip>
+        <!-- informacion escrita-->
+        <ion-card-title>{{indicacion.descripcion}}</ion-card-title>
+        <ion-card-subtitle>{{indicacion.comentarios}}</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="indicacion.laboratorio">{{indicacion.laboratorio}}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </div>
+
 
 </ion-content>

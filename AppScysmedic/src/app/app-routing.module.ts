@@ -4,11 +4,16 @@ import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
     loadChildren: './home/home.module#HomePageModule'
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthPageModule)
+    loadChildren: './auth/auth.module#AuthPageModule'
   },
   {
     path: 'myhealth',
@@ -29,7 +34,20 @@ const routes: Routes = [
   {
     path: 'configuracion',
     loadChildren: () => import('./configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
+  },
+  {
+    path: 'historial',
+    loadChildren: () => import('./historial/historial.module').then( m => m.HistorialPageModule)
+  },
+  {
+    path: 'buscar-laboratorio',
+    loadChildren: () => import('./buscar-laboratorio/buscar-laboratorio.module').then( m => m.BuscarLaboratorioPageModule)
+  },
+  {
+    path: 'compra-detail',
+    loadChildren: () => import('./compra-detail/compra-detail.module').then( m => m.CompraDetailPageModule)
   }
+
 
 
 

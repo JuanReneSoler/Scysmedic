@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="" (click)="cerrarSinPasarDatos()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Buscar {{resultado.tipo_entidad}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item *ngIf="resultado.tipo_entidad == 'Laboratorio'">
+      <ion-label>Laboratorio:</ion-label>
+
+      <ionic-selectable [(ngModel)]="laboratorio_seleccionado" [items]="laboratorios" itemValueField="id"
+        itemTextField="nombre" [canSearch]="true" (onChange)="seleccionarLaboratorio($event)">
+      </ionic-selectable>
+    </ion-item>
+
+    <ion-item *ngIf="resultado.tipo_entidad == 'Farmacia'">
+      <ion-label>Farmacia:</ion-label>
+
+      <ionic-selectable [(ngModel)]="farmacia_seleccionada" [items]="farmacias" itemValueField="id"
+        itemTextField="nombre" [canSearch]="true" (onChange)="seleccionarFarmacia($event)">
+      </ionic-selectable>
+    </ion-item>
+    <ion-item>
+      <ion-label>Con seguro médico</ion-label>
+      <ion-toggle [(ngModel)]="seguro_medico"></ion-toggle>
+    </ion-item>
+  </ion-card>
+  <ion-button expand="full" (click)="cerrarypasarDatos()">Solicitar cotización</ion-button>
+
+    
+    
+</ion-content>

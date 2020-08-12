@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="" (click)="cerrarSinPasarDatos()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Aseguradora de salud</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-group *ngIf="usuario.datos_aseguradora.nss">
+    <ion-item-divider>
+      <ion-label>Datos de aseguradora</ion-label>
+    </ion-item-divider>
+    <ion-item >
+      <ion-label>
+        <h3>Nombre de la aseguradora</h3>
+        <p>{{usuario.datos_aseguradora.aseguradora_nombre}}</p>
+        <br>
+        <h3>NSS (Número de seguro social)</h3>
+        <p>{{usuario.datos_aseguradora.nss}}</p>
+        <br>
+        <h3>Plan</h3>
+        <p>{{usuario.datos_aseguradora.plan}}</p>
+        <br>
+      </ion-label>
+    </ion-item>
+  </ion-item-group>
+
+  <div *ngIf="!usuario.datos_aseguradora.nss">
+    <ion-item lines="full">
+      <br>
+
+      <ion-text><p>Aún no ha vinculado su seguro médico con la 
+        aplicación. Pulse el botón más abajo para vincularlo.</p></ion-text>
+    </ion-item>
+    <ion-button expand="full" (click)="openModalVincularSeguro()">Agregar seguro médico</ion-button>
+  </div>
+
+
+
+</ion-content>

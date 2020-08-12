@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="" (click)="cerrarSinPasarDatos()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalles de la compra</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+
+    <ion-list>
+      <ion-label>
+        <h4>Datos del especialista</h4>
+      </ion-label>
+      <ion-item>
+        <ion-label>
+          <h4>{{compra.farmacia}}</h4>
+          <p>{{compra.centro}}</p>
+        </ion-label>
+      </ion-item>
+      <br>
+      <ion-label>
+        <h4>Cajero/a: {{compra.cajero}}</h4>
+        <p>Fecha de la compra: {{compra.fecha_compra}}</p>
+      </ion-label>
+
+
+      <h5>Items de la compra:</h5>
+      <ion-item *ngFor="let detalle of compra.detalles">
+        <ion-label>
+          <h4>Medicamento: {{detalle.descripcion}}</h4>
+          <p>Cantidad: {{detalle.cantidad}}</p>
+          <p>Precio: {{detalle.precio}}</p>
+          <p>Total: {{detalle.total}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-text color="dark">
+        <h4>Total:   {{compra.precioPagar}}</h4>
+      </ion-text>
+      <ion-text color="medium">
+        <h5 >Monto cubierto:   {{compra.monto_cubierto}}</h5>
+      </ion-text>
+
+      <ion-chip color={{compra.color_estado}} outline>
+        <ion-icon name={{compra.icono_estado}} color={{compra.color_estado}}></ion-icon>
+        <ion-label color={{compra.color_estado_secundario}}>{{compra.estado}}</ion-label>
+      </ion-chip>
+    </ion-list>
+
+  </ion-item>
+  <ion-button expand="full" (click)="cerrarypasarDatos()" *ngIf="compra.estado == 'Pendiente de pago'">Aplicar pago</ion-button>
+
+  
+</ion-content>

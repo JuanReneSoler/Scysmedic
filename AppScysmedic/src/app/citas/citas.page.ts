@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PopoverController, IonSearchbar, ModalController } from '@ionic/angular';
+import { PopoverController, IonSearchbar, ModalController, IonItemSliding } from '@ionic/angular';
 import { PoopcionComponent } from '../components/poopcion/poopcion.component';
 import { CitaService } from '../services/cita.service';
 import { ProgramarCitaPage } from '../programar-cita/programar-cita.page';
@@ -15,15 +15,15 @@ export class CitasPage implements OnInit {
   citas = [
     {
       id: 1,
-      fecha: '4 de Septiembre, 2020',
-      centro: 'Hospital docente Dr. Dario Contreras',
-      especialista: 'Dr. Marino Cuevas',
-      especialidad: 'Dermatologia',
-      imagen: 'https://www.doctortipster.com/wp-content/uploads/2016/02/Dr-Zukerman-Profile.jpg'
+      fecha: '2020-09-04',
+      centro: 'Hospital Princeton-Plainsboro',
+      especialista: 'Dr. Gregory House M.D.',
+      especialidad: 'Diagnóstico Médico',
+      imagen: 'https://3.bp.blogspot.com/_X1iErLcd9gs/SkKWX-_ngxI/AAAAAAAAAy8/RF3qAtxVef4/s280/20070425022321-hugh-laurie.jpg'
     },
     {
       id: 2,
-      fecha: '7 de Septiembre, 2020',
+      fecha: '2020-09-07',
       centro: 'Hospital docente Dr. Dario Contreras',
       especialista: 'Dr. Katherine Mejia',
       especialidad: 'Psiquiatra',
@@ -31,7 +31,7 @@ export class CitasPage implements OnInit {
     },
     {
       id: 3,
-      fecha: '15 de Septiembre, 2020',
+      fecha: '2020-09-15',
       centro: 'Hospital Padre Billini',
       especialista: 'Dr. Pedro Sanchez',
       especialidad: 'Neumologia',
@@ -61,18 +61,24 @@ export class CitasPage implements OnInit {
     });
 
     await modal.present();
+    const { data } = await modal.onDidDismiss();
+    //this.citas.push(data);
+
   }
 
   //Obtener detalles de la cita(Modal)
-  async openDetallesCita(cita) {
+  async openDetallesCita(cita,sliding) {
     const modal = await this.modalCtrl.create({
       component: CitasDetailPage,
       componentProps: {
         cita: cita
       }
     });
+    sliding.close();
 
     await modal.present();
+
+
   }
 
 
@@ -102,7 +108,7 @@ export class CitasPage implements OnInit {
   showDefaultBar() {
     this.toggled = false;
   }
-  
+
   searchChanged() {
     this.citaService.search(this.searchTerm).subscribe((result: any) => {
       console.log('details: ', result);
