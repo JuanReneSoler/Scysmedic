@@ -72,9 +72,9 @@ namespace Persistence
             {
                 entity.ToTable("AspNetRoleClaims", "Identity");
 
-                entity.HasIndex(e => e.RoleId);
-
-                entity.Property(e => e.RoleId).IsRequired();
+                entity.Property(e => e.RoleId)
+                    .IsRequired()
+                    .HasMaxLength(450);
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.AspNetRoleClaims)
@@ -85,11 +85,6 @@ namespace Persistence
             {
                 entity.ToTable("AspNetRoles", "Identity");
 
-                entity.HasIndex(e => e.NormalizedName)
-                    .HasName("RoleNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedName] IS NOT NULL)");
-
                 entity.Property(e => e.Name).HasMaxLength(256);
 
                 entity.Property(e => e.NormalizedName).HasMaxLength(256);
@@ -99,9 +94,9 @@ namespace Persistence
             {
                 entity.ToTable("AspNetUserClaims", "Identity");
 
-                entity.HasIndex(e => e.UserId);
-
-                entity.Property(e => e.UserId).IsRequired();
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserClaims)
@@ -114,9 +109,9 @@ namespace Persistence
 
                 entity.ToTable("AspNetUserLogins", "Identity");
 
-                entity.HasIndex(e => e.UserId);
-
-                entity.Property(e => e.UserId).IsRequired();
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserLogins)
@@ -128,8 +123,6 @@ namespace Persistence
                 entity.HasKey(e => new { e.UserId, e.RoleId });
 
                 entity.ToTable("AspNetUserRoles", "Identity");
-
-                entity.HasIndex(e => e.RoleId);
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.AspNetUserRoles)
@@ -154,14 +147,6 @@ namespace Persistence
             modelBuilder.Entity<AspNetUsers>(entity =>
             {
                 entity.ToTable("AspNetUsers", "Identity");
-
-                entity.HasIndex(e => e.NormalizedEmail)
-                    .HasName("EmailIndex");
-
-                entity.HasIndex(e => e.NormalizedUserName)
-                    .HasName("UserNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
                 entity.Property(e => e.Email).HasMaxLength(256);
 
@@ -207,18 +192,18 @@ namespace Persistence
                     .WithMany(p => p.Citas)
                     .HasForeignKey(d => d.EmpleadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Citas__EmpleadoI__44CA3770");
+                    .HasConstraintName("FK__Citas__EmpleadoI__06CD04F7");
 
                 entity.HasOne(d => d.Hospital)
                     .WithMany(p => p.Citas)
                     .HasForeignKey(d => d.HospitalId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Citas__HospitalI__43D61337");
+                    .HasConstraintName("FK__Citas__HospitalI__07C12930");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Citas)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Citas__UserId__42E1EEFE");
+                    .HasConstraintName("FK__Citas__UserId__08B54D69");
             });
 
             modelBuilder.Entity<Compra>(entity =>
@@ -235,24 +220,24 @@ namespace Persistence
                     .WithMany(p => p.Compra)
                     .HasForeignKey(d => d.FarmaciaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Compra__Farmacia__395884C4");
+                    .HasConstraintName("FK__Compra__Farmacia__70DDC3D8");
 
                 entity.HasOne(d => d.Receta)
                     .WithMany(p => p.Compra)
                     .HasForeignKey(d => d.RecetaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Compra__RecetaId__3A4CA8FD");
+                    .HasConstraintName("FK__Compra__RecetaId__71D1E811");
 
                 entity.HasOne(d => d.TipoPagoNavigation)
                     .WithMany(p => p.Compra)
                     .HasForeignKey(d => d.TipoPago)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Compra__TipoPago__3B40CD36");
+                    .HasConstraintName("FK__Compra__TipoPago__72C60C4A");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Compra)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Compra__UserId__3864608B");
+                    .HasConstraintName("FK__Compra__UserId__73BA3083");
             });
 
             modelBuilder.Entity<CompraDetalle>(entity =>
@@ -265,19 +250,19 @@ namespace Persistence
                     .WithMany(p => p.CompraDetalle)
                     .HasForeignKey(d => d.CompraId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CompraDet__Compr__3E1D39E1");
+                    .HasConstraintName("FK__CompraDet__Compr__74AE54BC");
 
                 entity.HasOne(d => d.MedicamentoReceta)
                     .WithMany(p => p.CompraDetalle)
                     .HasForeignKey(d => d.MedicamentoRecetaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CompraDet__Medic__3F115E1A");
+                    .HasConstraintName("FK__CompraDet__Medic__75A278F5");
 
                 entity.HasOne(d => d.MotivoDevolucion)
                     .WithMany(p => p.CompraDetalle)
                     .HasForeignKey(d => d.MotivoDevolucionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CompraDet__Motiv__40058253");
+                    .HasConstraintName("FK__CompraDet__Motiv__76969D2E");
             });
 
             modelBuilder.Entity<Documento>(entity =>
@@ -320,7 +305,7 @@ namespace Persistence
                     .WithMany(p => p.Empleado)
                     .HasForeignKey(d => d.TipoDocId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Empleado__TipoDo__6C190EBB");
+                    .HasConstraintName("FK__Empleado__TipoDo__09A971A2");
             });
 
             modelBuilder.Entity<Empleado1>(entity =>
@@ -350,7 +335,7 @@ namespace Persistence
                     .WithMany(p => p.Empleado1)
                     .HasForeignKey(d => d.TipoDocId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Empleado__TipoDo__0E6E26BF");
+                    .HasConstraintName("FK__Empleado__TipoDo__114A936A");
             });
 
             modelBuilder.Entity<Empleado2>(entity =>
@@ -380,7 +365,7 @@ namespace Persistence
                     .WithMany(p => p.Empleado2)
                     .HasForeignKey(d => d.TipoDocId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Empleado__TipoDo__02084FDA");
+                    .HasConstraintName("FK__Empleado__TipoDo__1DB06A4F");
             });
 
             modelBuilder.Entity<EmpleadoEspecialidad>(entity =>
@@ -391,13 +376,13 @@ namespace Persistence
                     .WithMany(p => p.EmpleadoEspecialidad)
                     .HasForeignKey(d => d.EmpleadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoE__Emple__17F790F9");
+                    .HasConstraintName("FK__EmpleadoE__Emple__123EB7A3");
 
                 entity.HasOne(d => d.Especialidad)
                     .WithMany(p => p.EmpleadoEspecialidad)
                     .HasForeignKey(d => d.EspecialidadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoE__Espec__18EBB532");
+                    .HasConstraintName("FK__EmpleadoE__Espec__1332DBDC");
             });
 
             modelBuilder.Entity<EmpleadoHistorial>(entity =>
@@ -408,19 +393,19 @@ namespace Persistence
                     .WithMany(p => p.EmpleadoHistorial)
                     .HasForeignKey(d => d.CargoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Cargo__6FE99F9F");
+                    .HasConstraintName("FK__EmpleadoH__Cargo__0A9D95DB");
 
                 entity.HasOne(d => d.Empleado)
                     .WithMany(p => p.EmpleadoHistorial)
                     .HasForeignKey(d => d.EmpleadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Emple__6EF57B66");
+                    .HasConstraintName("FK__EmpleadoH__Emple__0B91BA14");
 
                 entity.HasOne(d => d.Farmacia)
                     .WithMany(p => p.EmpleadoHistorial)
                     .HasForeignKey(d => d.FarmaciaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Farma__70DDC3D8");
+                    .HasConstraintName("FK__EmpleadoH__Farma__0C85DE4D");
             });
 
             modelBuilder.Entity<EmpleadoHistorial1>(entity =>
@@ -431,19 +416,19 @@ namespace Persistence
                     .WithMany(p => p.EmpleadoHistorial1)
                     .HasForeignKey(d => d.CargoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Cargo__123EB7A3");
+                    .HasConstraintName("FK__EmpleadoH__Cargo__14270015");
 
                 entity.HasOne(d => d.Empleado)
                     .WithMany(p => p.EmpleadoHistorial1)
                     .HasForeignKey(d => d.EmpleadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Emple__114A936A");
+                    .HasConstraintName("FK__EmpleadoH__Emple__151B244E");
 
                 entity.HasOne(d => d.Laboratorio)
                     .WithMany(p => p.EmpleadoHistorial1)
                     .HasForeignKey(d => d.LaboratorioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Labor__1332DBDC");
+                    .HasConstraintName("FK__EmpleadoH__Labor__160F4887");
             });
 
             modelBuilder.Entity<EmpleadoHistorial2>(entity =>
@@ -454,19 +439,19 @@ namespace Persistence
                     .WithMany(p => p.EmpleadoHistorial2)
                     .HasForeignKey(d => d.CargoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Cargo__05D8E0BE");
+                    .HasConstraintName("FK__EmpleadoH__Cargo__1EA48E88");
 
                 entity.HasOne(d => d.Empleado)
                     .WithMany(p => p.EmpleadoHistorial2)
                     .HasForeignKey(d => d.EmpleadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Emple__04E4BC85");
+                    .HasConstraintName("FK__EmpleadoH__Emple__1F98B2C1");
 
                 entity.HasOne(d => d.Laboratorio)
                     .WithMany(p => p.EmpleadoHistorial2)
                     .HasForeignKey(d => d.LaboratorioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Labor__06CD04F7");
+                    .HasConstraintName("FK__EmpleadoH__Labor__208CD6FA");
             });
 
             modelBuilder.Entity<Especialidad>(entity =>
@@ -499,12 +484,12 @@ namespace Persistence
                     .WithMany(p => p.FarmaciaUser)
                     .HasForeignKey(d => d.FarmaciaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__FarmaciaU__Farma__1BC821DD");
+                    .HasConstraintName("FK__FarmaciaU__Farma__778AC167");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.FarmaciaUser)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__FarmaciaU__UserI__1CBC4616");
+                    .HasConstraintName("FK__FarmaciaU__UserI__787EE5A0");
             });
 
             modelBuilder.Entity<Hospital>(entity =>
@@ -521,7 +506,7 @@ namespace Persistence
                     .WithMany(p => p.Hospital)
                     .HasForeignKey(d => d.TipoEmpresaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Hospital__TipoEm__0B91BA14");
+                    .HasConstraintName("FK__Hospital__TipoEm__17036CC0");
             });
 
             modelBuilder.Entity<HospitalEmpleadoUser>(entity =>
@@ -532,19 +517,19 @@ namespace Persistence
                     .WithMany(p => p.HospitalEmpleadoUser)
                     .HasForeignKey(d => d.EmpleadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__HospitalE__Emple__282DF8C2");
+                    .HasConstraintName("FK__HospitalE__Emple__797309D9");
 
                 entity.HasOne(d => d.Especialidad)
                     .WithMany(p => p.HospitalEmpleadoUser)
                     .HasForeignKey(d => d.EspecialidadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__HospitalE__Espec__29221CFB");
+                    .HasConstraintName("FK__HospitalE__Espec__7A672E12");
 
                 entity.HasOne(d => d.Hospital)
                     .WithMany(p => p.HospitalEmpleadoUser)
                     .HasForeignKey(d => d.HospitalId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__HospitalE__Hospi__2739D489");
+                    .HasConstraintName("FK__HospitalE__Hospi__7B5B524B");
             });
 
             modelBuilder.Entity<HospitalUser>(entity =>
@@ -557,12 +542,12 @@ namespace Persistence
                     .WithMany(p => p.HospitalUser)
                     .HasForeignKey(d => d.HospitalId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__HospitalU__Hospi__236943A5");
+                    .HasConstraintName("FK__HospitalU__Hospi__7C4F7684");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.HospitalUser)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__HospitalU__UserI__245D67DE");
+                    .HasConstraintName("FK__HospitalU__UserI__7D439ABD");
             });
 
             modelBuilder.Entity<Laboratorio>(entity =>
@@ -591,7 +576,7 @@ namespace Persistence
                     .WithMany(p => p.Laboratorio)
                     .HasForeignKey(d => d.TipoEmpresaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Laborator__TipoE__7F2BE32F");
+                    .HasConstraintName("FK__Laborator__TipoE__2180FB33");
             });
 
             modelBuilder.Entity<LaboratorioUser>(entity =>
@@ -604,12 +589,12 @@ namespace Persistence
                     .WithMany(p => p.LaboratorioUser)
                     .HasForeignKey(d => d.LaboratorioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Laborator__Labor__1F98B2C1");
+                    .HasConstraintName("FK__Laborator__Labor__7E37BEF6");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.LaboratorioUser)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Laborator__UserI__208CD6FA");
+                    .HasConstraintName("FK__Laborator__UserI__7F2BE32F");
             });
 
             modelBuilder.Entity<Medicamento>(entity =>
@@ -629,7 +614,7 @@ namespace Persistence
                     .WithMany(p => p.Medicamento)
                     .HasForeignKey(d => d.TipoMedicamentoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Medicamen__TipoM__76969D2E");
+                    .HasConstraintName("FK__Medicamen__TipoM__0D7A0286");
             });
 
             modelBuilder.Entity<MedicamentoHostorial>(entity =>
@@ -640,13 +625,13 @@ namespace Persistence
                     .WithMany(p => p.MedicamentoHostorial)
                     .HasForeignKey(d => d.MedicamentoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Medicamen__Medic__797309D9");
+                    .HasConstraintName("FK__Medicamen__Medic__0E6E26BF");
 
                 entity.HasOne(d => d.Suplidor)
                     .WithMany(p => p.MedicamentoHostorial)
                     .HasForeignKey(d => d.SuplidorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Medicamen__Supli__7A672E12");
+                    .HasConstraintName("FK__Medicamen__Supli__0F624AF8");
             });
 
             modelBuilder.Entity<MotivoDevolucion>(entity =>
@@ -668,12 +653,12 @@ namespace Persistence
                     .WithMany(p => p.Receta)
                     .HasForeignKey(d => d.EmpleadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Receta__Empleado__2CF2ADDF");
+                    .HasConstraintName("FK__Receta__Empleado__00200768");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Receta)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Receta__UserId__2BFE89A6");
+                    .HasConstraintName("FK__Receta__UserId__01142BA1");
             });
 
             modelBuilder.Entity<RecetaDetalle>(entity =>
@@ -688,13 +673,13 @@ namespace Persistence
                     .WithMany(p => p.RecetaDetalle)
                     .HasForeignKey(d => d.MedicamentoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RecetaDet__Medic__30C33EC3");
+                    .HasConstraintName("FK__RecetaDet__Medic__02084FDA");
 
                 entity.HasOne(d => d.Receta)
                     .WithMany(p => p.RecetaDetalle)
                     .HasForeignKey(d => d.RecetaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RecetaDet__Recet__2FCF1A8A");
+                    .HasConstraintName("FK__RecetaDet__Recet__02FC7413");
             });
 
             modelBuilder.Entity<Resultado>(entity =>
@@ -707,18 +692,18 @@ namespace Persistence
                     .WithMany(p => p.Resultado)
                     .HasForeignKey(d => d.DocumentoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Resultado__Docum__3587F3E0");
+                    .HasConstraintName("FK__Resultado__Docum__03F0984C");
 
                 entity.HasOne(d => d.Laboratorio)
                     .WithMany(p => p.Resultado)
                     .HasForeignKey(d => d.LaboratorioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Resultado__Labor__3493CFA7");
+                    .HasConstraintName("FK__Resultado__Labor__04E4BC85");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Resultado)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Resultado__UserI__339FAB6E");
+                    .HasConstraintName("FK__Resultado__UserI__05D8E0BE");
             });
 
             modelBuilder.Entity<Suplidor>(entity =>
@@ -748,7 +733,7 @@ namespace Persistence
                     .WithMany(p => p.Suplidor)
                     .HasForeignKey(d => d.TipoEmpresaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Suplidor__TipoEm__73BA3083");
+                    .HasConstraintName("FK__Suplidor__TipoEm__10566F31");
             });
 
             modelBuilder.Entity<TipoDocumento>(entity =>
