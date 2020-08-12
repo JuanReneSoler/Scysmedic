@@ -1,29 +1,39 @@
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-  }
+ion-content > .logo > * {
+  text-align: center !important;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  ion-header{
-    background-color: rgb(39, 48, 56);
-  }
+ion-content > .logo {
+  background-color: white;
+  padding: 15%;
+}
 
-  ion-card-title{
-      color: white;
-  }
-  ion-card-subtitle{
-      color: rgb(204, 204, 204);
-  }
+ion-content > .logo > img {
+  width: 25%;
+}
 
+ion-content > .logo > .title {
+  font-weight: bold;
+}
 
-  .ion-color-favorite {
-    --ion-color-base: var(--ion-color-favorite);
-    --ion-color-base-rgb: var(--ion-color-favorite-rgb);
-    --ion-color-contrast: var(--ion-color-favorite-contrast);
-    --ion-color-contrast-rgb: var(--ion-color-favorite-contrast-rgb);
-    --ion-color-shade: var(--ion-color-favorite-shade);
-    --ion-color-tint: var(--ion-color-favorite-tint);
-  }
+ion-content > .logo > .subtitle {
+  font-weight: bold;
+  color: grey;
+}
+
+//content
+ion-content > form > * {
+  display: block;
+}
+
+ion-content > form > ion-label, ion-content > form > ion-router-link {
+  text-align: center;
+}
+
+ion-content > form > .message {
+  color: red;
+  padding-top: 10%;
+}
+

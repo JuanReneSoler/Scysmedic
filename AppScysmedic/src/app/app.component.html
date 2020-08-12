@@ -4,22 +4,16 @@
       <ion-content>
 
         <ion-header>
-          <ion-toolbar>
-            <ion-title>
-              Menu
-            </ion-title>
+          <ion-toolbar class="avatar">
+            <ion-avatar class="avatar-image">
+              <img src="https://bigbangtheoryla.files.wordpress.com/2009/05/jim_parsons.jpg?w=584">
+            </ion-avatar>
+            <ion-label>
+              <h1>Sheldon Cooper</h1>
+              <p>SheldonCopper@ionic.com</p>
+            </ion-label>
           </ion-toolbar>
         </ion-header>
-
-        <ion-item lines="none">
-          <ion-thumbnail slot="start">
-            <img src="https://bigbangtheoryla.files.wordpress.com/2009/05/jim_parsons.jpg?w=584">
-          </ion-thumbnail>
-          <ion-label>
-            <h1>Sheldon Cooper</h1>
-            <p>SheldonCopper@ionic.com</p>
-          </ion-label>
-        </ion-item>
 
         <ion-list id="inbox-list">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of MenuPaciente">
