@@ -13,6 +13,5 @@ namespace Persistence.Models
 
         public virtual HospitalEmpleadoUser Empleado { get; set; }
         public virtual HospitalUser Hospital { get; set; }
-        public virtual AspNetUsers User { get; set; }
     }
 }

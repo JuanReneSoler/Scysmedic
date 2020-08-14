@@ -29,4 +29,8 @@ export class AccountService extends BaseService {
     return this.http.post(this.BaseUrl+"Account/LogIn", obj);
   }
 
+  Register(entity){
+    return this.http.post(this.BaseUrl+"Account/New", entity);
+  }
+
 }

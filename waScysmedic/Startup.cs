@@ -37,7 +37,7 @@ namespace waScysmedic
             services.AddIdentity<IdentityUser, IdentityRole>(x=>{
                 x.Password.RequiredLength = 8;
                     
-            }).AddEntityFrameworkStores<ScysmedicDbContext>();
+            }).AddEntityFrameworkStores<IdentityScysmedicDbContext>();
 
             services.AddCors(options =>
             {

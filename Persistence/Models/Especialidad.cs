@@ -7,12 +7,12 @@ namespace Persistence.Models
     {
         public Especialidad()
         {
-            EmpleadoEspecialidad = new HashSet<EmpleadoEspecialidad>();
+            HospitalEmpleadoEspecialidad = new HashSet<HospitalEmpleadoEspecialidad>();
         }
 
         public int Id { get; set; }
         public string Descripcion { get; set; }
 
-        public virtual ICollection<EmpleadoEspecialidad> EmpleadoEspecialidad { get; set; }
+        public virtual ICollection<HospitalEmpleadoEspecialidad> HospitalEmpleadoEspecialidad { get; set; }
     }
 }

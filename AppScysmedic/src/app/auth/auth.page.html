@@ -17,9 +17,11 @@
       <ion-input formControlName="password" type="password" required></ion-input>
     </ion-item>
 
-    <ion-button href="/home/citas" >Entrar</ion-button>
+    <ion-button type="submit" >Entrar</ion-button>
 
-    <ion-router-link href="#">Olvidé mi usuario o contraseña</ion-router-link>
+    <ion-router-link class="register" href="/auth/register">Registrarse</ion-router-link>
+
+    <ion-router-link class="forgot" href="#">Olvidé mi usuario o contraseña</ion-router-link>
 
     <ion-label class="message">{{message}}</ion-label>
 

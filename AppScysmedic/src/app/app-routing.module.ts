@@ -16,6 +16,10 @@ const routes: Routes = [
     loadChildren: './auth/auth.module#AuthPageModule'
   },
   {
+    path:"auth/register",
+    loadChildren:()=>import("./register/register.module").then(x=>x.RegisterPageModule)
+  },
+  {
     path: 'myhealth',
     loadChildren: () => import('./myhealth/myhealth.module').then(m => m.MyhealthPageModule)
   },
@@ -46,7 +50,12 @@ const routes: Routes = [
   {
     path: 'compra-detail',
     loadChildren: () => import('./compra-detail/compra-detail.module').then( m => m.CompraDetailPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   }
+
 
 
 

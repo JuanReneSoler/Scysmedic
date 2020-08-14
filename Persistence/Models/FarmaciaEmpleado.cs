@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Persistence.Models
 {
-    public partial class Empleado2
+    public partial class FarmaciaEmpleado
     {
-        public Empleado2()
+        public FarmaciaEmpleado()
         {
-            EmpleadoHistorial2 = new HashSet<EmpleadoHistorial2>();
+            FarmaciaEmpleadoHistorial = new HashSet<FarmaciaEmpleadoHistorial>();
         }
 
         public int Id { get; set; }
@@ -19,6 +19,6 @@ namespace Persistence.Models
         public DateTime FechaNacimiento { get; set; }
 
         public virtual TipoDocumento TipoDoc { get; set; }
-        public virtual ICollection<EmpleadoHistorial2> EmpleadoHistorial2 { get; set; }
+        public virtual ICollection<FarmaciaEmpleadoHistorial> FarmaciaEmpleadoHistorial { get; set; }
     }
 }

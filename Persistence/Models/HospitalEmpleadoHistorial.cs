@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Persistence.Models
 {
-    public partial class EmpleadoHistorial1
+    public partial class HospitalEmpleadoHistorial
     {
         public int Id { get; set; }
         public int EmpleadoId { get; set; }
@@ -11,8 +11,8 @@ namespace Persistence.Models
         public int CargoId { get; set; }
         public int LaboratorioId { get; set; }
 
-        public virtual Cargo1 Cargo { get; set; }
-        public virtual Empleado1 Empleado { get; set; }
+        public virtual HospitalCargo Cargo { get; set; }
+        public virtual HospitalEmpleado Empleado { get; set; }
         public virtual Hospital Laboratorio { get; set; }
     }
 }

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Persistence.Models
 {
-    public partial class Empleado1
+    public partial class HospitalEmpleado
     {
-        public Empleado1()
+        public HospitalEmpleado()
         {
-            EmpleadoEspecialidad = new HashSet<EmpleadoEspecialidad>();
-            EmpleadoHistorial1 = new HashSet<EmpleadoHistorial1>();
+            HospitalEmpleadoEspecialidad = new HashSet<HospitalEmpleadoEspecialidad>();
+            HospitalEmpleadoHistorial = new HashSet<HospitalEmpleadoHistorial>();
             HospitalEmpleadoUser = new HashSet<HospitalEmpleadoUser>();
             Receta = new HashSet<Receta>();
         }
@@ -17,13 +17,13 @@ namespace Persistence.Models
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public int TipoDocId { get; set; }
-        public string DocumentoIdentidad { get; set; }
+        public string DocId { get; set; }
         public string Sexo { get; set; }
         public DateTime FechaNacimiento { get; set; }
 
         public virtual TipoDocumento TipoDoc { get; set; }
-        public virtual ICollection<EmpleadoEspecialidad> EmpleadoEspecialidad { get; set; }
-        public virtual ICollection<EmpleadoHistorial1> EmpleadoHistorial1 { get; set; }
+        public virtual ICollection<HospitalEmpleadoEspecialidad> HospitalEmpleadoEspecialidad { get; set; }
+        public virtual ICollection<HospitalEmpleadoHistorial> HospitalEmpleadoHistorial { get; set; }
         public virtual ICollection<HospitalEmpleadoUser> HospitalEmpleadoUser { get; set; }
         public virtual ICollection<Receta> Receta { get; set; }
     }

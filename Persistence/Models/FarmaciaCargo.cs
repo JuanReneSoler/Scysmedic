@@ -3,19 +3,16 @@ using System.Collections.Generic;
 
 namespace Persistence.Models
 {
-    public partial class Farmacia
+    public partial class FarmaciaCargo
     {
-        public Farmacia()
+        public FarmaciaCargo()
         {
             FarmaciaEmpleadoHistorial = new HashSet<FarmaciaEmpleadoHistorial>();
-            FarmaciaUser = new HashSet<FarmaciaUser>();
         }
 
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public int TipoEmpresaId { get; set; }
+        public string Descripcion { get; set; }
 
         public virtual ICollection<FarmaciaEmpleadoHistorial> FarmaciaEmpleadoHistorial { get; set; }
-        public virtual ICollection<FarmaciaUser> FarmaciaUser { get; set; }
     }
 }
