@@ -79,7 +79,8 @@ namespace waScysmedic.Controllers
             //     return BadRequest();
             // }
 
-            var p = await this.UserManager.FindByNameAsync(user.User);
+            if(this.UserManager.Users.Any(x=>x.UserName == user.User))
+                return BadRequest("Este usuario ya existe");
 
             var obj = new IdentityUser
             {
@@ -110,6 +111,18 @@ namespace waScysmedic.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        [Route("api/Account/RestorePass")]
+        public async Task<ActionResult> RestorePass(Usuario user)
+        {
+            var usuario = await this.UserManager.FindByNameAsync(user.User).ConfigureAwait(false);
+            string resetToken = await this.UserManager.GeneratePasswordResetTokenAsync(usuario);
+            IdentityResult passwordChangeResult = await UserManager.ResetPasswordAsync(usuario, resetToken, user.Password);
+            return Ok();
         }
     }
 }

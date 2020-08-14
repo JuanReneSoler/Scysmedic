@@ -34,6 +34,9 @@ namespace waScysmedic
             services.AddDbContext<ScysmedicDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ScysmedicDB")));
 
+            services.AddDbContext<IdentityScysmedicDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ScysmedicDB")));
+
             services.AddIdentity<IdentityUser, IdentityRole>(x=>{
                 x.Password.RequiredLength = 8;
                     

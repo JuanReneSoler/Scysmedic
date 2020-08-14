@@ -24,13 +24,17 @@ export class AccountService extends BaseService {
       "userName":user,
       "password":pass,
       "rememberMe":rMe
-    }
+    };
 
     return this.http.post(this.BaseUrl+"Account/LogIn", obj);
   }
 
   Register(entity){
     return this.http.post(this.BaseUrl+"Account/New", entity);
+  }
+
+  ForgotPass(entity){
+    return this.http.post(this.BaseUrl+"Account/RestorePass", entity);
   }
 
 }

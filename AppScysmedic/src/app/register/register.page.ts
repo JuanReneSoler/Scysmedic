@@ -48,7 +48,7 @@ export class RegisterPage implements OnInit {
 
     this.account.Register(obj)
     .subscribe((x:any)=>{
-      this.router.navigateByUrl("/citas");
+      this.router.navigateByUrl("/auth");
     },(error:any)=>{
       alert(error.statusText);
     });

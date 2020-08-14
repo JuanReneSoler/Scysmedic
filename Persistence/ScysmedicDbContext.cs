@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Persistence.Models;
-using System.Configuration;
 
 namespace Persistence
 {
@@ -59,8 +58,10 @@ namespace Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var conectionString = ConfigurationManager.ConnectionStrings["ScysmedicDB"].ConnectionString;
-            optionsBuilder.UseSqlServer(conectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=.;Database=ScysmedicDB;Trusted_Connection=True;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

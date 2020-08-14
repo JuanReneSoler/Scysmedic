@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold "Server=.;Database=ScysmedicDB;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -c ScysmedicDbContext --project .\Persistence\Persistence.csproj

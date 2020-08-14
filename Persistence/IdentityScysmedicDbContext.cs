@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using System.Configuration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Persistence
@@ -22,11 +21,7 @@ namespace Persistence
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer("Server=.;Database=ScysmedicDB;Trusted_Connection=True;");
-                return;
             }
-
-            var conectionString = ConfigurationManager.ConnectionStrings["ScysmedicDB"].ConnectionString;
-            optionsBuilder.UseSqlServer(conectionString);
         }
     }
 }
