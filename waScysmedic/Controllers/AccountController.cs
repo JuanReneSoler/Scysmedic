@@ -13,6 +13,7 @@ using System.Linq;
 using waScysmedic.Models;
 using Persistence;
 using Persistence.Models;
+using System;
 
 namespace waScysmedic.Controllers
 {
@@ -67,8 +68,8 @@ namespace waScysmedic.Controllers
         [AllowAnonymous]
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        [Route("api/Account/New")]
-        public async Task<IActionResult> New(Usuario user)
+        [Route("api/Account/NewUserApp")]
+        public async Task<IActionResult> NewAppUser(UsuarioApp user)
         {
             // if(!ModelState.IsValid)
             // {
@@ -87,9 +88,8 @@ namespace waScysmedic.Controllers
                 UserName = user.User,
                 Email = user.Mail
             };
+            
             var result = await this.UserManager.CreateAsync(obj, user.Password);
-
-            return result.Succeeded ? (IActionResult)Ok() : (IActionResult)BadRequest();
 
             if(result.Succeeded)
             {
@@ -117,12 +117,123 @@ namespace waScysmedic.Controllers
         [HttpPost]
         //[ValidateAntiForgeryToken]
         [Route("api/Account/RestorePass")]
-        public async Task<ActionResult> RestorePass(Usuario user)
+        public async Task<IActionResult> RestorePass(LogIn user)
         {
-            var usuario = await this.UserManager.FindByNameAsync(user.User).ConfigureAwait(false);
+            var usuario = await this.UserManager.FindByNameAsync(user.userName).ConfigureAwait(false);
             string resetToken = await this.UserManager.GeneratePasswordResetTokenAsync(usuario);
             IdentityResult passwordChangeResult = await UserManager.ResetPasswordAsync(usuario, resetToken, user.Password);
             return Ok();
+        }
+
+        [Route("api/Account/NewFarmacyUser")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> NewFarmacyUser(Empleado user)
+        {
+            // if(!ModelState.IsValid)
+            // {
+            //     foreach (var item in ModelState.er)
+            //     {
+            //         ModelState.AddModelError("", item.Description);
+            //     }
+            //     return BadRequest();
+            // }
+
+            if(this.UserManager.Users.Any(x=>x.UserName == user.User))
+                return BadRequest("Este usuario ya existe");
+
+            var obj = new IdentityUser
+            {
+                UserName = user.User,
+                Email = user.Mail
+            };
+
+            var result = await this.UserManager.CreateAsync(obj, user.Password);
+
+            if(result.Succeeded)
+            {
+                await this.Context.FarmaciaEmpleado.AddAsync(new FarmaciaEmpleado{
+                    Apellido = user.Apellido,
+                    DocumentoIdentidad = user.DocId,
+                    FechaNacimiento = user.FechaNacido,
+                    Id = user.Id,
+                    Nombre = user.Nombre,
+                    Sexo = user.Sexo,
+                    TipoDocId = user.TipoDocId,
+                    UserId = obj.Id,
+                    FarmaciaEmpleadoHistorial = new List<FarmaciaEmpleadoHistorial>
+                    {
+                        new FarmaciaEmpleadoHistorial{
+                            CargoId = user.CargoId,
+                            FarmaciaId = user.EmpresaId,
+                            FechaEntrada = DateTime.Now,
+                        }
+                    }
+                });
+
+                await this.Context.SaveChangesAsync().ConfigureAwait(false);
+                
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [Route("api/Account/NewLaboratoryUser")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> NewLaboratoryUser(Empleado user)
+        {
+            // if(!ModelState.IsValid)
+            // {
+            //     foreach (var item in ModelState.er)
+            //     {
+            //         ModelState.AddModelError("", item.Description);
+            //     }
+            //     return BadRequest();
+            // }
+
+            if(this.UserManager.Users.Any(x=>x.UserName == user.User))
+                return BadRequest("Este usuario ya existe");
+
+            var obj = new IdentityUser
+            {
+                UserName = user.User,
+                Email = user.Mail
+            };
+
+            var result = await this.UserManager.CreateAsync(obj, user.Password);
+
+            if(result.Succeeded)
+            {
+                await this.Context.LaboratorioEmpleado.AddAsync(new LaboratorioEmpleado{
+                    Apellido = user.Apellido,
+                    DocumentoIdentidad =  user.DocId,
+                    FechaNacimiento = user.FechaNacido,
+                    Id = user.Id,
+                    Nombre = user.Nombre,
+                    Sexo = user.Sexo,
+                    TipoDocId = user.TipoDocId,
+                    UserId = obj.Id,
+                    LaboratorioEmpleadoHistorial = new List<LaboratorioEmpleadoHistorial>{
+                        new LaboratorioEmpleadoHistorial{
+                            CargoId = user.CargoId,
+                            FechaEntrada = DateTime.Now,
+                            LaboratorioId = user.EmpresaId,
+                        }
+                    }
+                });
+
+                await this.Context.SaveChangesAsync().ConfigureAwait(false);
+                
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

@@ -112,7 +112,8 @@ create table [Farmacias].FarmaciaEmpleado(
 	TipoDocId int not null foreign key references Shared.TipoDocumento(Id),
 	DocumentoIdentidad varchar(20),
 	Sexo varchar(1) not null,
-	FechaNacimiento datetime2 not null
+	FechaNacimiento datetime2 not null,
+	UserId nvarchar(450)
 ); 
 go
 
@@ -140,7 +141,9 @@ create table [Farmacias].Medicamento(
 	Id int not null primary key identity(1,1),
 	Nombre varchar(100) not null,
 	Descripcion text not null,
-	TipoMedicamentoId int not null foreign key references Farmacias.TipoMedicamento(Id)
+	TipoMedicamentoId int not null foreign key references Farmacias.TipoMedicamento(Id),
+	Foto int foreign key references Repository.Documento(Id),
+	FarmaciaId int not null foreign key references Farmacias.Farmacia(Id)
 ); 
 go
 
@@ -181,7 +184,8 @@ create table [Laboratorios].LaboratorioEmpleado(
 	TipoDocId int not null foreign key references Shared.TipoDocumento(Id),
 	DocumentoIdentidad varchar(20),
 	Sexo varchar(1) not null,
-	FechaNacimiento datetime2 not null
+	FechaNacimiento datetime2 not null,
+	UserId nvarchar(450)
 ); 
 go
 
@@ -217,7 +221,8 @@ create table [Hospitales].HospitalEmpleado(
 	TipoDocId int not null foreign key references Shared.TipoDocumento(Id),
 	DocId varchar(20),
 	Sexo varchar(1) not null,
-	FechaNacimiento datetime2 not null
+	FechaNacimiento datetime2 not null,
+	UserId nvarchar(450)
 ); 
 go
 
