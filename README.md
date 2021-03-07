@@ -1,14 +1,21 @@
-# Scysmedic 
+# Scysmedic
+Este Sistema es el proyecto de grado para optar por la carrera de ingenieria en informatica
+de UTESA, como parte del programa pensum vigente en el a~no 2014 hasta el 2020.
 
-<<<<<<< HEAD
-=======
-this branch is for Juan R. Soler
+el proyecto esta desarrollado en c# webapi con .Net Core para el BackEnd
+y ionic Angularjs para ela FrontEnd.
 
->>>>>>> Juan
-Este proyecto es para la materia de Proyecto de Grado
+Descripcion:
+Consiste en una plataforma, que permite a sistematizar procesos de consultas medicas
+como programacion de citas medicas, compra de medicamentos despacho de medicamentos,
+administracion de registro medico, administracion de perfiles del personal medico y 
+de las instituciones que brindan servicios de salud.
 
-Consiste en una plataforma, que permite a sus usuarios mante
-
+Este consta de cuatro modulos principales que cubren parte de las areas del ciclo
+medico, estos son:
+1) Una App Para dispositivos Android: esta tiene como mision mantener a un pasiente conectado 
+desde cualquier lugar con su registro medico, esta ademas le permite llevar el control de
+sus citas, manejar resultados medicos.
 
 pasos para hechar a andar este proyecto
 -----------------------------------------------------------------
