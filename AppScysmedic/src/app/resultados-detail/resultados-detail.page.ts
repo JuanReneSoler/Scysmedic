@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { BuscarLaboratorioPage } from '../buscar-laboratorio/buscar-laboratorio.page';
 
 @Component({
   selector: 'app-resultados-detail',
@@ -8,6 +9,10 @@ import { ModalController } from '@ionic/angular';
 })
 export class ResultadosDetailPage implements OnInit {
 
+  @Input() resultado;
+
+  
+
   constructor(private modalCtrl:ModalController) { }
 
   ngOnInit() {
@@ -15,5 +20,21 @@ export class ResultadosDetailPage implements OnInit {
 
   cerrarSinPasarDatos(){
     this.modalCtrl.dismiss();
+  }
+
+  //Buscar la entidad 
+  async openBusquedaEntidad(resultado) {
+    const modal = await this.modalCtrl.create({
+      component: BuscarLaboratorioPage,
+      componentProps: {
+        resultado: resultado
+      }
+    });
+    
+    await modal.present();
+    
+    const  {data}  = await modal.onDidDismiss();
+    resultado.estado = data.nuevo_estado;
+    resultado.color_estado = data.nuevo_color;
   }
 }

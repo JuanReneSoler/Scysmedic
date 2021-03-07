@@ -16,8 +16,7 @@ namespace Persistence.Models
         public string UserId { get; set; }
         public int EmpleadoId { get; set; }
 
-        public virtual Empleado1 Empleado { get; set; }
-        public virtual AspNetUsers User { get; set; }
+        public virtual HospitalEmpleado Empleado { get; set; }
         public virtual ICollection<Compra> Compra { get; set; }
         public virtual ICollection<RecetaDetalle> RecetaDetalle { get; set; }
     }

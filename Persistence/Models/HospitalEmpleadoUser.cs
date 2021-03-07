@@ -16,8 +16,8 @@ namespace Persistence.Models
         public int EspecialidadId { get; set; }
         public DateTime FechaAfiliacion { get; set; }
 
-        public virtual Empleado1 Empleado { get; set; }
-        public virtual EmpleadoEspecialidad Especialidad { get; set; }
+        public virtual HospitalEmpleado Empleado { get; set; }
+        public virtual HospitalEmpleadoEspecialidad Especialidad { get; set; }
         public virtual HospitalUser Hospital { get; set; }
         public virtual ICollection<Citas> Citas { get; set; }
     }

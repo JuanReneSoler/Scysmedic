@@ -7,7 +7,9 @@ namespace Persistence.Models
     {
         public Documento()
         {
+            Medicamento = new HashSet<Medicamento>();
             Resultado = new HashSet<Resultado>();
+            SeguroHistorial = new HashSet<SeguroHistorial>();
         }
 
         public int Id { get; set; }
@@ -16,6 +18,8 @@ namespace Persistence.Models
         public string Path { get; set; }
         public DateTime FechaCarga { get; set; }
 
+        public virtual ICollection<Medicamento> Medicamento { get; set; }
         public virtual ICollection<Resultado> Resultado { get; set; }
+        public virtual ICollection<SeguroHistorial> SeguroHistorial { get; set; }
     }
 }

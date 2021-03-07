@@ -17,7 +17,6 @@ namespace Persistence.Models
         public DateTime FechaAfiliacion { get; set; }
 
         public virtual Hospital Hospital { get; set; }
-        public virtual AspNetUsers User { get; set; }
         public virtual ICollection<Citas> Citas { get; set; }
         public virtual ICollection<HospitalEmpleadoUser> HospitalEmpleadoUser { get; set; }
     }

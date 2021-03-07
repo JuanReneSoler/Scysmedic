@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm()" novalidate>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input formControlName="nombre" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input formControlName="apellido" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="mail" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Confirm Email</ion-label>
+      <ion-input formControlName="confirmMail" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Cedula</ion-label>
+      <ion-input formControlName="docId" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Fecha Nacimiento</ion-label>
+      <ion-datetime formControlName="fechaNac" required value="2019-10-01T15:43:40.394Z" display-timezone="utc"></ion-datetime>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Usuario</ion-label>
+      <ion-input formControlName="userName" type="text" required></ion-input>
+    </ion-item>
+    
+    <ion-item lines="full">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input formControlName="password" type="password" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Confirm Password</ion-label>
+      <ion-input formControlName="confirmPass" type="password" required></ion-input>
+    </ion-item>
+
+    <ion-button type="submit">Registrar</ion-button>
+  </form>
+</ion-content>

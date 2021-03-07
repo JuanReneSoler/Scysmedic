@@ -1,13 +1,98 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Detalles de resultado</ion-title>
+    
+    <ion-title>{{resultado.tipo_documento}}
+    </ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="" (click)="cerrarSinPasarDatos()"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-    
+
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <!--Receta-->
 
+    <ion-list *ngIf="resultado.tipo_documento == 'Receta'">
+      <ion-label>
+        <h4>Datos del especialista</h4>
+      </ion-label>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img src={{resultado.imagen_especialista}}>
+        </ion-thumbnail>
+        <ion-label>
+          <h4>{{resultado.especialista}}</h4>
+          <p>{{resultado.especialidad}}</p>
+          <p>{{resultado.centro}}</p>
+        </ion-label>
+      </ion-item>
+      <br>
+      <ion-label>
+        <h4>Paciente: {{resultado.paciente}}</h4>
+        <p>Fecha de la cita: {{resultado.fecha}}</p>
+      </ion-label>
+
+
+      <h5>Indicaciones de la receta:</h5>
+      <ion-item *ngFor="let detalle of resultado.detalles">
+        <ion-label>
+          <h4>Medicamento: {{detalle.medicamento}}</h4>
+          <p>Cantidad: {{detalle.cantidad}}</p>
+          <p>Indicación: {{detalle.aplicacion}}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-chip color={{resultado.color_estado}}>
+        <ion-icon name={{resultado.icono_estado}} color={{resultado.color_estado}}></ion-icon>
+        <ion-label color={{resultado.color_estado}}>{{resultado.estado}}</ion-label>
+      </ion-chip>
+    </ion-list>
+
+    <!--Indicaciones-->
+
+    <ion-list *ngIf="resultado.tipo_documento == 'Indicacion'">
+      <h3>Indicación: {{resultado.descripcion}}</h3>
+      <br>
+      <p>Instrucciones: {{resultado.comentarios}}</p>
+      <p *ngIf="resultado.fecha_realizacion">Fecha de realización: {{resultado.fecha_realizacion}}</p>
+      <br>
+
+      <ion-label *ngIf="resultado.laboratorio">
+        <h4>Datos del laboratorio</h4>
+      </ion-label>
+      <ion-item>
+        <ion-label>
+          <h4>{{resultado.laboratorio}}</h4>
+          <p>{{resultado.laboratorio_direccion}}</p>
+          <p>{{resultado.laboratorio_telefono}}</p>
+        </ion-label>
+      </ion-item>
+      <br>
+      <div *ngIf="resultado.estado == 'Por realizar (Pagado)'">
+
+        <ion-label>
+          <h4>Información de pago</h4>
+        </ion-label>
+        <ion-label>
+          <h4>Monto neto: {{resultado.monto_final}}</h4>
+          <p>Monto cubierto: {{resultado.monto_descontado_aseguradora}}</p>
+          <p>Monto inicial: {{resultado.total_inicial}}</p>
+        </ion-label>
+      </div>
+
+
+      <ion-chip color={{resultado.color_estado}}>
+        <ion-icon name={{resultado.icono_estado}} color={{resultado.color_estado}}></ion-icon>
+        <ion-label color={{resultado.color_estado}}>{{resultado.estado}}</ion-label>
+      </ion-chip>
+    </ion-list>
+
+
+  </ion-item>
+  <ion-button (click)="openBusquedaEntidad(resultado)" expand="full" *ngIf="resultado.estado == 'Pendiente'">Buscar
+    laboratorio</ion-button>
+  <ion-button (click)="openBusquedaEntidad(resultado)" expand="full"
+    *ngIf="resultado.estado == 'Pendiente por comprar'">Buscar farmacia</ion-button>
 </ion-content>

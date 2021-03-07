@@ -16,34 +16,30 @@ namespace Persistence
         {
         }
 
-        public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
-        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
-        public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Cargo> Cargo { get; set; }
-        public virtual DbSet<Cargo1> Cargo1 { get; set; }
-        public virtual DbSet<Cargo2> Cargo2 { get; set; }
+        public virtual DbSet<Aseguradora> Aseguradora { get; set; }
+        public virtual DbSet<Banco> Banco { get; set; }
         public virtual DbSet<Citas> Citas { get; set; }
         public virtual DbSet<Compra> Compra { get; set; }
         public virtual DbSet<CompraDetalle> CompraDetalle { get; set; }
         public virtual DbSet<Documento> Documento { get; set; }
-        public virtual DbSet<Empleado> Empleado { get; set; }
-        public virtual DbSet<Empleado1> Empleado1 { get; set; }
-        public virtual DbSet<Empleado2> Empleado2 { get; set; }
-        public virtual DbSet<EmpleadoEspecialidad> EmpleadoEspecialidad { get; set; }
-        public virtual DbSet<EmpleadoHistorial> EmpleadoHistorial { get; set; }
-        public virtual DbSet<EmpleadoHistorial1> EmpleadoHistorial1 { get; set; }
-        public virtual DbSet<EmpleadoHistorial2> EmpleadoHistorial2 { get; set; }
         public virtual DbSet<Especialidad> Especialidad { get; set; }
         public virtual DbSet<Farmacia> Farmacia { get; set; }
+        public virtual DbSet<FarmaciaCargo> FarmaciaCargo { get; set; }
+        public virtual DbSet<FarmaciaEmpleado> FarmaciaEmpleado { get; set; }
+        public virtual DbSet<FarmaciaEmpleadoHistorial> FarmaciaEmpleadoHistorial { get; set; }
         public virtual DbSet<FarmaciaUser> FarmaciaUser { get; set; }
         public virtual DbSet<Hospital> Hospital { get; set; }
+        public virtual DbSet<HospitalCargo> HospitalCargo { get; set; }
+        public virtual DbSet<HospitalEmpleado> HospitalEmpleado { get; set; }
+        public virtual DbSet<HospitalEmpleadoEspecialidad> HospitalEmpleadoEspecialidad { get; set; }
+        public virtual DbSet<HospitalEmpleadoHistorial> HospitalEmpleadoHistorial { get; set; }
         public virtual DbSet<HospitalEmpleadoUser> HospitalEmpleadoUser { get; set; }
         public virtual DbSet<HospitalUser> HospitalUser { get; set; }
+        public virtual DbSet<InformacionPersonal> InformacionPersonal { get; set; }
         public virtual DbSet<Laboratorio> Laboratorio { get; set; }
+        public virtual DbSet<LaboratorioCargo> LaboratorioCargo { get; set; }
+        public virtual DbSet<LaboratorioEmpleado> LaboratorioEmpleado { get; set; }
+        public virtual DbSet<LaboratorioEmpleadoHistorial> LaboratorioEmpleadoHistorial { get; set; }
         public virtual DbSet<LaboratorioUser> LaboratorioUser { get; set; }
         public virtual DbSet<Medicamento> Medicamento { get; set; }
         public virtual DbSet<MedicamentoHostorial> MedicamentoHostorial { get; set; }
@@ -51,11 +47,14 @@ namespace Persistence
         public virtual DbSet<Receta> Receta { get; set; }
         public virtual DbSet<RecetaDetalle> RecetaDetalle { get; set; }
         public virtual DbSet<Resultado> Resultado { get; set; }
+        public virtual DbSet<SeguroHistorial> SeguroHistorial { get; set; }
         public virtual DbSet<Suplidor> Suplidor { get; set; }
+        public virtual DbSet<TargetaVinculadas> TargetaVinculadas { get; set; }
         public virtual DbSet<TipoDocumento> TipoDocumento { get; set; }
         public virtual DbSet<TipoEmpresa> TipoEmpresa { get; set; }
         public virtual DbSet<TipoMedicamento> TipoMedicamento { get; set; }
         public virtual DbSet<TipoPago> TipoPago { get; set; }
+        public virtual DbSet<TipoTargeta> TipoTargeta { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -68,157 +67,54 @@ namespace Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AspNetRoleClaims>(entity =>
+            modelBuilder.Entity<Aseguradora>(entity =>
             {
-                entity.ToTable("AspNetRoleClaims", "Identity");
+                entity.ToTable("Aseguradora", "Shared");
 
-                entity.HasIndex(e => e.RoleId);
-
-                entity.Property(e => e.RoleId).IsRequired();
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.AspNetRoleClaims)
-                    .HasForeignKey(d => d.RoleId);
-            });
-
-            modelBuilder.Entity<AspNetRoles>(entity =>
-            {
-                entity.ToTable("AspNetRoles", "Identity");
-
-                entity.HasIndex(e => e.NormalizedName)
-                    .HasName("RoleNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedName] IS NOT NULL)");
-
-                entity.Property(e => e.Name).HasMaxLength(256);
-
-                entity.Property(e => e.NormalizedName).HasMaxLength(256);
-            });
-
-            modelBuilder.Entity<AspNetUserClaims>(entity =>
-            {
-                entity.ToTable("AspNetUserClaims", "Identity");
-
-                entity.HasIndex(e => e.UserId);
-
-                entity.Property(e => e.UserId).IsRequired();
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserClaims)
-                    .HasForeignKey(d => d.UserId);
-            });
-
-            modelBuilder.Entity<AspNetUserLogins>(entity =>
-            {
-                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
-
-                entity.ToTable("AspNetUserLogins", "Identity");
-
-                entity.HasIndex(e => e.UserId);
-
-                entity.Property(e => e.UserId).IsRequired();
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserLogins)
-                    .HasForeignKey(d => d.UserId);
-            });
-
-            modelBuilder.Entity<AspNetUserRoles>(entity =>
-            {
-                entity.HasKey(e => new { e.UserId, e.RoleId });
-
-                entity.ToTable("AspNetUserRoles", "Identity");
-
-                entity.HasIndex(e => e.RoleId);
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.AspNetUserRoles)
-                    .HasForeignKey(d => d.RoleId);
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserRoles)
-                    .HasForeignKey(d => d.UserId);
-            });
-
-            modelBuilder.Entity<AspNetUserTokens>(entity =>
-            {
-                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
-
-                entity.ToTable("AspNetUserTokens", "Identity");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserTokens)
-                    .HasForeignKey(d => d.UserId);
-            });
-
-            modelBuilder.Entity<AspNetUsers>(entity =>
-            {
-                entity.ToTable("AspNetUsers", "Identity");
-
-                entity.HasIndex(e => e.NormalizedEmail)
-                    .HasName("EmailIndex");
-
-                entity.HasIndex(e => e.NormalizedUserName)
-                    .HasName("UserNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
-
-                entity.Property(e => e.Email).HasMaxLength(256);
-
-                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
-
-                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
-
-                entity.Property(e => e.UserName).HasMaxLength(256);
-            });
-
-            modelBuilder.Entity<Cargo>(entity =>
-            {
-                entity.ToTable("Cargo", "Farmacias");
-
-                entity.Property(e => e.Descripcion)
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Cargo1>(entity =>
+            modelBuilder.Entity<Banco>(entity =>
             {
-                entity.ToTable("Cargo", "Hospitales");
+                entity.ToTable("Banco", "Shared");
 
-                entity.Property(e => e.Descripcion)
+                entity.Property(e => e.Descripcion).HasColumnType("text");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
-            });
 
-            modelBuilder.Entity<Cargo2>(entity =>
-            {
-                entity.ToTable("Cargo", "Laboratorios");
+                entity.Property(e => e.Rnc)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Descripcion)
-                    .HasMaxLength(100)
+                entity.Property(e => e.Siglas)
+                    .IsRequired()
+                    .HasMaxLength(10)
                     .IsUnicode(false);
             });
 
             modelBuilder.Entity<Citas>(entity =>
             {
+                entity.ToTable("Citas", "App");
+
                 entity.Property(e => e.UserId).HasMaxLength(450);
 
                 entity.HasOne(d => d.Empleado)
                     .WithMany(p => p.Citas)
                     .HasForeignKey(d => d.EmpleadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Citas__EmpleadoI__44CA3770");
+                    .HasConstraintName("FK__Citas__EmpleadoI__0D7A0286");
 
                 entity.HasOne(d => d.Hospital)
                     .WithMany(p => p.Citas)
                     .HasForeignKey(d => d.HospitalId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Citas__HospitalI__43D61337");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Citas)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Citas__UserId__42E1EEFE");
+                    .HasConstraintName("FK__Citas__HospitalI__0C85DE4D");
             });
 
             modelBuilder.Entity<Compra>(entity =>
@@ -235,24 +131,19 @@ namespace Persistence
                     .WithMany(p => p.Compra)
                     .HasForeignKey(d => d.FarmaciaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Compra__Farmacia__395884C4");
+                    .HasConstraintName("FK__Compra__Farmacia__02FC7413");
 
                 entity.HasOne(d => d.Receta)
                     .WithMany(p => p.Compra)
                     .HasForeignKey(d => d.RecetaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Compra__RecetaId__3A4CA8FD");
+                    .HasConstraintName("FK__Compra__RecetaId__03F0984C");
 
                 entity.HasOne(d => d.TipoPagoNavigation)
                     .WithMany(p => p.Compra)
                     .HasForeignKey(d => d.TipoPago)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Compra__TipoPago__3B40CD36");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Compra)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Compra__UserId__3864608B");
+                    .HasConstraintName("FK__Compra__TipoPago__04E4BC85");
             });
 
             modelBuilder.Entity<CompraDetalle>(entity =>
@@ -265,19 +156,19 @@ namespace Persistence
                     .WithMany(p => p.CompraDetalle)
                     .HasForeignKey(d => d.CompraId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CompraDet__Compr__3E1D39E1");
+                    .HasConstraintName("FK__CompraDet__Compr__07C12930");
 
                 entity.HasOne(d => d.MedicamentoReceta)
                     .WithMany(p => p.CompraDetalle)
                     .HasForeignKey(d => d.MedicamentoRecetaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CompraDet__Medic__3F115E1A");
+                    .HasConstraintName("FK__CompraDet__Medic__08B54D69");
 
                 entity.HasOne(d => d.MotivoDevolucion)
                     .WithMany(p => p.CompraDetalle)
                     .HasForeignKey(d => d.MotivoDevolucionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CompraDet__Motiv__40058253");
+                    .HasConstraintName("FK__CompraDet__Motiv__09A971A2");
             });
 
             modelBuilder.Entity<Documento>(entity =>
@@ -291,182 +182,6 @@ namespace Persistence
                 entity.Property(e => e.Path)
                     .IsRequired()
                     .HasColumnType("text");
-            });
-
-            modelBuilder.Entity<Empleado>(entity =>
-            {
-                entity.ToTable("Empleado", "Farmacias");
-
-                entity.Property(e => e.Apellido)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DocumentoIdentidad)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Nombre)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Sexo)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.TipoDoc)
-                    .WithMany(p => p.Empleado)
-                    .HasForeignKey(d => d.TipoDocId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Empleado__TipoDo__6C190EBB");
-            });
-
-            modelBuilder.Entity<Empleado1>(entity =>
-            {
-                entity.ToTable("Empleado", "Hospitales");
-
-                entity.Property(e => e.Apellido)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DocumentoIdentidad)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Nombre)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Sexo)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.TipoDoc)
-                    .WithMany(p => p.Empleado1)
-                    .HasForeignKey(d => d.TipoDocId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Empleado__TipoDo__0E6E26BF");
-            });
-
-            modelBuilder.Entity<Empleado2>(entity =>
-            {
-                entity.ToTable("Empleado", "Laboratorios");
-
-                entity.Property(e => e.Apellido)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DocumentoIdentidad)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Nombre)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Sexo)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.TipoDoc)
-                    .WithMany(p => p.Empleado2)
-                    .HasForeignKey(d => d.TipoDocId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Empleado__TipoDo__02084FDA");
-            });
-
-            modelBuilder.Entity<EmpleadoEspecialidad>(entity =>
-            {
-                entity.ToTable("EmpleadoEspecialidad", "Hospitales");
-
-                entity.HasOne(d => d.Empleado)
-                    .WithMany(p => p.EmpleadoEspecialidad)
-                    .HasForeignKey(d => d.EmpleadoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoE__Emple__17F790F9");
-
-                entity.HasOne(d => d.Especialidad)
-                    .WithMany(p => p.EmpleadoEspecialidad)
-                    .HasForeignKey(d => d.EspecialidadId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoE__Espec__18EBB532");
-            });
-
-            modelBuilder.Entity<EmpleadoHistorial>(entity =>
-            {
-                entity.ToTable("EmpleadoHistorial", "Farmacias");
-
-                entity.HasOne(d => d.Cargo)
-                    .WithMany(p => p.EmpleadoHistorial)
-                    .HasForeignKey(d => d.CargoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Cargo__6FE99F9F");
-
-                entity.HasOne(d => d.Empleado)
-                    .WithMany(p => p.EmpleadoHistorial)
-                    .HasForeignKey(d => d.EmpleadoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Emple__6EF57B66");
-
-                entity.HasOne(d => d.Farmacia)
-                    .WithMany(p => p.EmpleadoHistorial)
-                    .HasForeignKey(d => d.FarmaciaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Farma__70DDC3D8");
-            });
-
-            modelBuilder.Entity<EmpleadoHistorial1>(entity =>
-            {
-                entity.ToTable("EmpleadoHistorial", "Hospitales");
-
-                entity.HasOne(d => d.Cargo)
-                    .WithMany(p => p.EmpleadoHistorial1)
-                    .HasForeignKey(d => d.CargoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Cargo__123EB7A3");
-
-                entity.HasOne(d => d.Empleado)
-                    .WithMany(p => p.EmpleadoHistorial1)
-                    .HasForeignKey(d => d.EmpleadoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Emple__114A936A");
-
-                entity.HasOne(d => d.Laboratorio)
-                    .WithMany(p => p.EmpleadoHistorial1)
-                    .HasForeignKey(d => d.LaboratorioId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Labor__1332DBDC");
-            });
-
-            modelBuilder.Entity<EmpleadoHistorial2>(entity =>
-            {
-                entity.ToTable("EmpleadoHistorial", "Laboratorios");
-
-                entity.HasOne(d => d.Cargo)
-                    .WithMany(p => p.EmpleadoHistorial2)
-                    .HasForeignKey(d => d.CargoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Cargo__05D8E0BE");
-
-                entity.HasOne(d => d.Empleado)
-                    .WithMany(p => p.EmpleadoHistorial2)
-                    .HasForeignKey(d => d.EmpleadoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Emple__04E4BC85");
-
-                entity.HasOne(d => d.Laboratorio)
-                    .WithMany(p => p.EmpleadoHistorial2)
-                    .HasForeignKey(d => d.LaboratorioId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EmpleadoH__Labor__06CD04F7");
             });
 
             modelBuilder.Entity<Especialidad>(entity =>
@@ -489,6 +204,70 @@ namespace Persistence
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<FarmaciaCargo>(entity =>
+            {
+                entity.ToTable("FarmaciaCargo", "Farmacias");
+
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<FarmaciaEmpleado>(entity =>
+            {
+                entity.ToTable("FarmaciaEmpleado", "Farmacias");
+
+                entity.Property(e => e.Apellido)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DocumentoIdentidad)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Sexo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserId).HasMaxLength(450);
+
+                entity.HasOne(d => d.TipoDoc)
+                    .WithMany(p => p.FarmaciaEmpleado)
+                    .HasForeignKey(d => d.TipoDocId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__FarmaciaE__TipoD__398D8EEE");
+            });
+
+            modelBuilder.Entity<FarmaciaEmpleadoHistorial>(entity =>
+            {
+                entity.ToTable("FarmaciaEmpleadoHistorial", "Farmacias");
+
+                entity.HasOne(d => d.Cargo)
+                    .WithMany(p => p.FarmaciaEmpleadoHistorial)
+                    .HasForeignKey(d => d.CargoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__FarmaciaE__Cargo__3D5E1FD2");
+
+                entity.HasOne(d => d.Empleado)
+                    .WithMany(p => p.FarmaciaEmpleadoHistorial)
+                    .HasForeignKey(d => d.EmpleadoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__FarmaciaE__Emple__3C69FB99");
+
+                entity.HasOne(d => d.Farmacia)
+                    .WithMany(p => p.FarmaciaEmpleadoHistorial)
+                    .HasForeignKey(d => d.FarmaciaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__FarmaciaE__Farma__3E52440B");
+            });
+
             modelBuilder.Entity<FarmaciaUser>(entity =>
             {
                 entity.ToTable("FarmaciaUser", "App");
@@ -499,12 +278,7 @@ namespace Persistence
                     .WithMany(p => p.FarmaciaUser)
                     .HasForeignKey(d => d.FarmaciaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__FarmaciaU__Farma__1BC821DD");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.FarmaciaUser)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__FarmaciaU__UserI__1CBC4616");
+                    .HasConstraintName("FK__FarmaciaU__Farma__6B24EA82");
             });
 
             modelBuilder.Entity<Hospital>(entity =>
@@ -521,7 +295,88 @@ namespace Persistence
                     .WithMany(p => p.Hospital)
                     .HasForeignKey(d => d.TipoEmpresaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Hospital__TipoEm__0B91BA14");
+                    .HasConstraintName("FK__Hospital__TipoEm__5AEE82B9");
+            });
+
+            modelBuilder.Entity<HospitalCargo>(entity =>
+            {
+                entity.ToTable("HospitalCargo", "Hospitales");
+
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<HospitalEmpleado>(entity =>
+            {
+                entity.ToTable("HospitalEmpleado", "Hospitales");
+
+                entity.Property(e => e.Apellido)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DocId)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Sexo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserId).HasMaxLength(450);
+
+                entity.HasOne(d => d.TipoDoc)
+                    .WithMany(p => p.HospitalEmpleado)
+                    .HasForeignKey(d => d.TipoDocId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__HospitalE__TipoD__5DCAEF64");
+            });
+
+            modelBuilder.Entity<HospitalEmpleadoEspecialidad>(entity =>
+            {
+                entity.ToTable("HospitalEmpleadoEspecialidad", "Hospitales");
+
+                entity.HasOne(d => d.Empleado)
+                    .WithMany(p => p.HospitalEmpleadoEspecialidad)
+                    .HasForeignKey(d => d.EmpleadoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__HospitalE__Emple__6754599E");
+
+                entity.HasOne(d => d.Especialidad)
+                    .WithMany(p => p.HospitalEmpleadoEspecialidad)
+                    .HasForeignKey(d => d.EspecialidadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__HospitalE__Espec__68487DD7");
+            });
+
+            modelBuilder.Entity<HospitalEmpleadoHistorial>(entity =>
+            {
+                entity.ToTable("HospitalEmpleadoHistorial", "Hospitales");
+
+                entity.HasOne(d => d.Cargo)
+                    .WithMany(p => p.HospitalEmpleadoHistorial)
+                    .HasForeignKey(d => d.CargoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__HospitalE__Cargo__619B8048");
+
+                entity.HasOne(d => d.Empleado)
+                    .WithMany(p => p.HospitalEmpleadoHistorial)
+                    .HasForeignKey(d => d.EmpleadoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__HospitalE__Emple__60A75C0F");
+
+                entity.HasOne(d => d.Laboratorio)
+                    .WithMany(p => p.HospitalEmpleadoHistorial)
+                    .HasForeignKey(d => d.LaboratorioId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__HospitalE__Labor__628FA481");
             });
 
             modelBuilder.Entity<HospitalEmpleadoUser>(entity =>
@@ -532,19 +387,19 @@ namespace Persistence
                     .WithMany(p => p.HospitalEmpleadoUser)
                     .HasForeignKey(d => d.EmpleadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__HospitalE__Emple__282DF8C2");
+                    .HasConstraintName("FK__HospitalE__Emple__74AE54BC");
 
                 entity.HasOne(d => d.Especialidad)
                     .WithMany(p => p.HospitalEmpleadoUser)
                     .HasForeignKey(d => d.EspecialidadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__HospitalE__Espec__29221CFB");
+                    .HasConstraintName("FK__HospitalE__Espec__75A278F5");
 
                 entity.HasOne(d => d.Hospital)
                     .WithMany(p => p.HospitalEmpleadoUser)
                     .HasForeignKey(d => d.HospitalId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__HospitalE__Hospi__2739D489");
+                    .HasConstraintName("FK__HospitalE__Hospi__73BA3083");
             });
 
             modelBuilder.Entity<HospitalUser>(entity =>
@@ -557,12 +412,33 @@ namespace Persistence
                     .WithMany(p => p.HospitalUser)
                     .HasForeignKey(d => d.HospitalId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__HospitalU__Hospi__236943A5");
+                    .HasConstraintName("FK__HospitalU__Hospi__70DDC3D8");
+            });
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.HospitalUser)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__HospitalU__UserI__245D67DE");
+            modelBuilder.Entity<InformacionPersonal>(entity =>
+            {
+                entity.ToTable("InformacionPersonal", "App");
+
+                entity.Property(e => e.Apellido)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DocId)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Mail)
+                    .IsRequired()
+                    .HasMaxLength(256)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserId).HasMaxLength(450);
             });
 
             modelBuilder.Entity<Laboratorio>(entity =>
@@ -591,7 +467,71 @@ namespace Persistence
                     .WithMany(p => p.Laboratorio)
                     .HasForeignKey(d => d.TipoEmpresaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Laborator__TipoE__7F2BE32F");
+                    .HasConstraintName("FK__Laborator__TipoE__4E88ABD4");
+            });
+
+            modelBuilder.Entity<LaboratorioCargo>(entity =>
+            {
+                entity.ToTable("LaboratorioCargo", "Laboratorios");
+
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<LaboratorioEmpleado>(entity =>
+            {
+                entity.ToTable("LaboratorioEmpleado", "Laboratorios");
+
+                entity.Property(e => e.Apellido)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DocumentoIdentidad)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Sexo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserId).HasMaxLength(450);
+
+                entity.HasOne(d => d.TipoDoc)
+                    .WithMany(p => p.LaboratorioEmpleado)
+                    .HasForeignKey(d => d.TipoDocId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Laborator__TipoD__5165187F");
+            });
+
+            modelBuilder.Entity<LaboratorioEmpleadoHistorial>(entity =>
+            {
+                entity.ToTable("LaboratorioEmpleadoHistorial", "Laboratorios");
+
+                entity.HasOne(d => d.Cargo)
+                    .WithMany(p => p.LaboratorioEmpleadoHistorial)
+                    .HasForeignKey(d => d.CargoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Laborator__Cargo__5535A963");
+
+                entity.HasOne(d => d.Empleado)
+                    .WithMany(p => p.LaboratorioEmpleadoHistorial)
+                    .HasForeignKey(d => d.EmpleadoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Laborator__Emple__5441852A");
+
+                entity.HasOne(d => d.Laboratorio)
+                    .WithMany(p => p.LaboratorioEmpleadoHistorial)
+                    .HasForeignKey(d => d.LaboratorioId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Laborator__Labor__5629CD9C");
             });
 
             modelBuilder.Entity<LaboratorioUser>(entity =>
@@ -604,12 +544,7 @@ namespace Persistence
                     .WithMany(p => p.LaboratorioUser)
                     .HasForeignKey(d => d.LaboratorioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Laborator__Labor__1F98B2C1");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.LaboratorioUser)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Laborator__UserI__208CD6FA");
+                    .HasConstraintName("FK__Laborator__Labor__6E01572D");
             });
 
             modelBuilder.Entity<Medicamento>(entity =>
@@ -625,11 +560,22 @@ namespace Persistence
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+                entity.HasOne(d => d.Farmacia)
+                    .WithMany(p => p.Medicamento)
+                    .HasForeignKey(d => d.FarmaciaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Medicamen__Farma__45F365D3");
+
+                entity.HasOne(d => d.FotoNavigation)
+                    .WithMany(p => p.Medicamento)
+                    .HasForeignKey(d => d.Foto)
+                    .HasConstraintName("FK__Medicament__Foto__44FF419A");
+
                 entity.HasOne(d => d.TipoMedicamento)
                     .WithMany(p => p.Medicamento)
                     .HasForeignKey(d => d.TipoMedicamentoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Medicamen__TipoM__76969D2E");
+                    .HasConstraintName("FK__Medicamen__TipoM__440B1D61");
             });
 
             modelBuilder.Entity<MedicamentoHostorial>(entity =>
@@ -640,13 +586,13 @@ namespace Persistence
                     .WithMany(p => p.MedicamentoHostorial)
                     .HasForeignKey(d => d.MedicamentoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Medicamen__Medic__797309D9");
+                    .HasConstraintName("FK__Medicamen__Medic__48CFD27E");
 
                 entity.HasOne(d => d.Suplidor)
                     .WithMany(p => p.MedicamentoHostorial)
                     .HasForeignKey(d => d.SuplidorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Medicamen__Supli__7A672E12");
+                    .HasConstraintName("FK__Medicamen__Supli__49C3F6B7");
             });
 
             modelBuilder.Entity<MotivoDevolucion>(entity =>
@@ -668,12 +614,7 @@ namespace Persistence
                     .WithMany(p => p.Receta)
                     .HasForeignKey(d => d.EmpleadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Receta__Empleado__2CF2ADDF");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Receta)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Receta__UserId__2BFE89A6");
+                    .HasConstraintName("FK__Receta__Empleado__787EE5A0");
             });
 
             modelBuilder.Entity<RecetaDetalle>(entity =>
@@ -688,13 +629,13 @@ namespace Persistence
                     .WithMany(p => p.RecetaDetalle)
                     .HasForeignKey(d => d.MedicamentoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RecetaDet__Medic__30C33EC3");
+                    .HasConstraintName("FK__RecetaDet__Medic__7C4F7684");
 
                 entity.HasOne(d => d.Receta)
                     .WithMany(p => p.RecetaDetalle)
                     .HasForeignKey(d => d.RecetaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RecetaDet__Recet__2FCF1A8A");
+                    .HasConstraintName("FK__RecetaDet__Recet__7B5B524B");
             });
 
             modelBuilder.Entity<Resultado>(entity =>
@@ -707,18 +648,37 @@ namespace Persistence
                     .WithMany(p => p.Resultado)
                     .HasForeignKey(d => d.DocumentoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Resultado__Docum__3587F3E0");
+                    .HasConstraintName("FK__Resultado__Docum__00200768");
 
                 entity.HasOne(d => d.Laboratorio)
                     .WithMany(p => p.Resultado)
                     .HasForeignKey(d => d.LaboratorioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Resultado__Labor__3493CFA7");
+                    .HasConstraintName("FK__Resultado__Labor__7F2BE32F");
+            });
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Resultado)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Resultado__UserI__339FAB6E");
+            modelBuilder.Entity<SeguroHistorial>(entity =>
+            {
+                entity.ToTable("SeguroHistorial", "App");
+
+                entity.Property(e => e.NumeroSeguro)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserId).HasMaxLength(450);
+
+                entity.HasOne(d => d.Documento)
+                    .WithMany(p => p.SeguroHistorial)
+                    .HasForeignKey(d => d.DocumentoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__SeguroHis__Docum__17036CC0");
+
+                entity.HasOne(d => d.Seguro)
+                    .WithMany(p => p.SeguroHistorial)
+                    .HasForeignKey(d => d.SeguroId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__SeguroHis__Segur__160F4887");
             });
 
             modelBuilder.Entity<Suplidor>(entity =>
@@ -748,7 +708,31 @@ namespace Persistence
                     .WithMany(p => p.Suplidor)
                     .HasForeignKey(d => d.TipoEmpresaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Suplidor__TipoEm__73BA3083");
+                    .HasConstraintName("FK__Suplidor__TipoEm__412EB0B6");
+            });
+
+            modelBuilder.Entity<TargetaVinculadas>(entity =>
+            {
+                entity.ToTable("TargetaVinculadas", "App");
+
+                entity.Property(e => e.Numero)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserId).HasMaxLength(450);
+
+                entity.HasOne(d => d.Banco)
+                    .WithMany(p => p.TargetaVinculadas)
+                    .HasForeignKey(d => d.BancoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__TargetaVi__Banco__123EB7A3");
+
+                entity.HasOne(d => d.TipoTargeta)
+                    .WithMany(p => p.TargetaVinculadas)
+                    .HasForeignKey(d => d.TipoTargetaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__TargetaVi__TipoT__1332DBDC");
             });
 
             modelBuilder.Entity<TipoDocumento>(entity =>
@@ -791,6 +775,16 @@ namespace Persistence
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
                     .HasMaxLength(10)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TipoTargeta>(entity =>
+            {
+                entity.ToTable("TipoTargeta", "Shared");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
 

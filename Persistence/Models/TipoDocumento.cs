@@ -7,16 +7,16 @@ namespace Persistence.Models
     {
         public TipoDocumento()
         {
-            Empleado = new HashSet<Empleado>();
-            Empleado1 = new HashSet<Empleado1>();
-            Empleado2 = new HashSet<Empleado2>();
+            FarmaciaEmpleado = new HashSet<FarmaciaEmpleado>();
+            HospitalEmpleado = new HashSet<HospitalEmpleado>();
+            LaboratorioEmpleado = new HashSet<LaboratorioEmpleado>();
         }
 
         public int Id { get; set; }
         public string Descripcion { get; set; }
 
-        public virtual ICollection<Empleado> Empleado { get; set; }
-        public virtual ICollection<Empleado1> Empleado1 { get; set; }
-        public virtual ICollection<Empleado2> Empleado2 { get; set; }
+        public virtual ICollection<FarmaciaEmpleado> FarmaciaEmpleado { get; set; }
+        public virtual ICollection<HospitalEmpleado> HospitalEmpleado { get; set; }
+        public virtual ICollection<LaboratorioEmpleado> LaboratorioEmpleado { get; set; }
     }
 }

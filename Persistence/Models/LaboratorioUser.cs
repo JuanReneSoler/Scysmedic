@@ -16,7 +16,6 @@ namespace Persistence.Models
         public DateTime FechaAfiliacion { get; set; }
 
         public virtual Laboratorio Laboratorio { get; set; }
-        public virtual AspNetUsers User { get; set; }
         public virtual ICollection<Resultado> Resultado { get; set; }
     }
 }

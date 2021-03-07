@@ -7,7 +7,7 @@ namespace Persistence.Models
     {
         public Hospital()
         {
-            EmpleadoHistorial1 = new HashSet<EmpleadoHistorial1>();
+            HospitalEmpleadoHistorial = new HashSet<HospitalEmpleadoHistorial>();
             HospitalUser = new HashSet<HospitalUser>();
         }
 
@@ -19,7 +19,7 @@ namespace Persistence.Models
         public int UbicacionLatitud { get; set; }
 
         public virtual TipoEmpresa TipoEmpresa { get; set; }
-        public virtual ICollection<EmpleadoHistorial1> EmpleadoHistorial1 { get; set; }
+        public virtual ICollection<HospitalEmpleadoHistorial> HospitalEmpleadoHistorial { get; set; }
         public virtual ICollection<HospitalUser> HospitalUser { get; set; }
     }
 }

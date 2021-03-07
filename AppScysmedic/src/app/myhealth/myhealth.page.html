@@ -8,17 +8,88 @@
       Mi salud
     </ion-title>
   </ion-toolbar>
+
+
+  <ion-segment value="all" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="mis_entidades" layout="icon-start">
+      <ion-icon name="attach-outline"></ion-icon>
+      <ion-label>Mis entidades</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="todas">
+      <ion-label>Todas</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
 </ion-header>
 
 <ion-content>
-  <ion-card button="true" (click)="openModal()">
-    <ion-card-header>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-    </ion-card-header>
-  
-    <ion-card-content>
-      Keep close to Nature's heart... and break clear away, once in awhile
-    </ion-card-content>
-  </ion-card>
-  
+
+
+  <ion-searchbar #searchbar placeholder="Buscar...">
+  </ion-searchbar>
+
+  <div *ngIf="segmento == 'mis_entidades'">
+    <ion-card butto ngDefaultControl *ngFor="let entidad of mis_entidades" [(ngModel)]="mis_entidades">
+      <img src={{entidad.imagen}}>
+      <ion-card-header>
+        <ion-chip color="primary">
+          <ion-icon name={{entidad.icono_entidad}}></ion-icon>
+          <ion-label color="primary">{{entidad.tipo_entidad}}</ion-label>
+        </ion-chip>
+        <ion-chip color="primary">
+          <ion-icon name={{entidad.icono_attached}}></ion-icon>
+          <ion-label color="primary">{{entidad.attached}}</ion-label>
+        </ion-chip>
+        <ion-card-title>{{entidad.nombre}}</ion-card-title>
+        <ion-card-subtitle>{{entidad.direccion}}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </div>
+
+  <ion-item>
+
+  </ion-item>
+  <div *ngIf="segmento == 'todas'">
+    <ion-item-group>
+      <ion-item-sliding *ngFor="let entidad of filterEntidades(entidades)">
+        <ion-item>
+          <ion-label>
+            <h3>{{entidad.nombre}}</h3>
+            <p>{{entidad.direccion}}</p>
+            <p>{{entidad.telefono}}.</p>
+          </ion-label>
+          <ion-chip color="primary">
+            <ion-icon name={{entidad.icono_entidad}}></ion-icon>
+            <ion-label color="primary">{{entidad.tipo_entidad}}</ion-label>
+          </ion-chip>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option>
+            Favorite
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+
+  </div>
+
+
+
 </ion-content>
+
+<ion-footer>
+
+  <ion-segment class="footer" value="Hospital" (ionChange)="segmentChanged2($event)" *ngIf="segmento == 'todas'">
+    <ion-segment-button value="Hospital">
+      <ion-label>Hospitales</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Laboratorio">
+      <ion-label>Laboratorios</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Farmacia">
+      <ion-label>Farmacias</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+
+</ion-footer>

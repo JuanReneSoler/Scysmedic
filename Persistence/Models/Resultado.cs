@@ -13,6 +13,5 @@ namespace Persistence.Models
 
         public virtual Documento Documento { get; set; }
         public virtual LaboratorioUser Laboratorio { get; set; }
-        public virtual AspNetUsers User { get; set; }
     }
 }

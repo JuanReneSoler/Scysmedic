@@ -1,0 +1,35 @@
+<ion-header class="" no-border>
+  <ion-toolbar class="" color="">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="float-left">Entrada de Acticulos</ion-title>
+    <div class="float-right mr-5">
+      <!-- <button class="btn mr-2">
+        <ion-icon name="cash-sharp"></ion-icon>
+      </button>
+      <button class="btn mr-2">
+        <ion-icon name="card-sharp"></ion-icon>
+      </button> -->
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid style="height: 95%;">
+    <ion-row style="height: 95%;">
+      <ion-col size="5">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Busqueda" aria-label="Recipient's username" aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+              <ion-icon name="search-sharp"></ion-icon>
+            </button>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <app-panel></app-panel>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

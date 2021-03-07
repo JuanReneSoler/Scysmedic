@@ -15,7 +15,11 @@ namespace Persistence.Models
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int TipoMedicamentoId { get; set; }
+        public int? Foto { get; set; }
+        public int FarmaciaId { get; set; }
 
+        public virtual Farmacia Farmacia { get; set; }
+        public virtual Documento FotoNavigation { get; set; }
         public virtual TipoMedicamento TipoMedicamento { get; set; }
         public virtual ICollection<MedicamentoHostorial> MedicamentoHostorial { get; set; }
         public virtual ICollection<RecetaDetalle> RecetaDetalle { get; set; }

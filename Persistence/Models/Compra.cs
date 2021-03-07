@@ -22,7 +22,6 @@ namespace Persistence.Models
         public virtual FarmaciaUser Farmacia { get; set; }
         public virtual Receta Receta { get; set; }
         public virtual TipoPago TipoPagoNavigation { get; set; }
-        public virtual AspNetUsers User { get; set; }
         public virtual ICollection<CompraDetalle> CompraDetalle { get; set; }
     }
 }
